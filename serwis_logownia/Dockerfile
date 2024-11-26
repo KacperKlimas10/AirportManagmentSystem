@@ -1,5 +1,5 @@
 FROM openjdk:17-jdk-alpine
-LABEL authors="Kacper"
+LABEL authors="Ekipa"
 
 COPY target/*.jar app.jar
 
