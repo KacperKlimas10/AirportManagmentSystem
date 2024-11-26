@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="serwis_logownia" />
-        <module name="lotnisko_projekt" />
         <module name="serwis_token" />
         <module name="serwis_db" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="lotnisko_projekt" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
