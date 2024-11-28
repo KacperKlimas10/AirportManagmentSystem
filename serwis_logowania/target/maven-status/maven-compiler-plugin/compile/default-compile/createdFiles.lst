@@ -1,0 +1,4 @@
+org\pl\serwis_logownia\AuthServiceController.class
+org\pl\serwis_logownia\AuthServiceApplication.class
+org\pl\serwis_logownia\User.class
+org\pl\serwis_logownia\AuthServiceRepository.class
