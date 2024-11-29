@@ -1,13 +1,9 @@
 package org.pl.serwis_logownia;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
-import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.net.http.HttpResponse;
 
 @Repository
 public class AuthServiceRepository {
@@ -19,9 +15,22 @@ public class AuthServiceRepository {
        try {
            jdbcTemplate.update(
                    "INSERT INTO Użytkownik (Login, Hasło) VALUES (?, ?)",
-                        user.getUsername(), user.sha256(user.getPassword()));
+                        user.getUsername(), HashHandler.sha256(user.getPassword()));
        } catch (DataAccessException e) {
            throw new RuntimeException(e);
        }
+    }
+
+    public String loginUser(User user) {
+        try {
+            String db_hash = jdbcTemplate.queryForObject("SELECT HASŁO FROM Użytkownik WHERE Login = ?",
+                    new Object[]{user.getUsername()}, String.class);
+            if (db_hash != null) {
+                if (HashHandler.validateUser(user, db_hash)) {
+                    return user.getUsername() + " logged in!";
+                }
+            }
+            return "Invalid user or password";
+        } catch (RuntimeException e) {throw new RuntimeException(e);}
     }
 }
