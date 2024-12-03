@@ -31,8 +31,7 @@ public class AuthServiceController {
     @PostMapping("/register")
     public String register(@RequestBody User user) {
         try {
-            auth.registerUser(user);
-            return "OK";
+            return auth.registerUser(user);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
