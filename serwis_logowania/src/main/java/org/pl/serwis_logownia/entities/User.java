@@ -1,6 +1,7 @@
 package org.pl.serwis_logownia.entities;
 
 import lombok.*;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
@@ -11,5 +12,5 @@ public class User {
     String Nazwisko;
     String Login;
     String Hasło;
-    Role Rola;
+    List<Role> Rola;
 }

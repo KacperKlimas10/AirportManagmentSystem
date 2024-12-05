@@ -1,7 +1,5 @@
 package org.pl.serwis_logownia.utils;
 
-import org.pl.serwis_logownia.entities.User;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
@@ -22,7 +20,8 @@ public class HashHandler {
             throw new RuntimeException(ex);
         }
     }
-    public static boolean validateUser(User user, String db_hash) {
-        return HashHandler.sha256(user.getHasło()).equals(db_hash);
+
+    public static boolean validateHash(String password, String db_hash) {
+        return HashHandler.sha256(password).equals(db_hash);
     }
 }

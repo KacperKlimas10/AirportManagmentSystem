@@ -1,8 +1,13 @@
 package org.pl.serwis_logownia.controllers;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.pl.serwis_logownia.entities.User;
+import org.pl.serwis_logownia.entities.jsonUser;
 import org.pl.serwis_logownia.services.AuthService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,16 +31,18 @@ public class AuthServiceController {
     public User getUser() {return auth.getUser();}
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
+    public ResponseEntity<?> login(@RequestBody jsonUser user, HttpServletResponse response) {
         try {
-            return auth.loginUser(user);
+            ResponseCookie responseCookie = auth.loginUserCookie(user);
+            response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
+            return ResponseEntity.ok("Logged in :D");
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody User user) {
+    public void register(@RequestBody jsonUser user) {
         try {
             auth.registerUser(user);
         } catch (Exception e) {

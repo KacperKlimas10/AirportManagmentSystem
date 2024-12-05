@@ -2,7 +2,6 @@ package org.pl.serwis_logownia.utils;
 
 import io.jsonwebtoken.*;
 import org.pl.serwis_logownia.entities.Role;
-import org.pl.serwis_logownia.entities.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +12,13 @@ import java.util.List;
 public class JwtUtils {
 
     @Value("${jwt.secret}")
-    private String jwtSecret;
+    private static String jwtSecret;
 
     @Value("${jwt.expiration}")
-    private long jwtExpirationMs;
+    private static long jwtExpirationMs;
 
-    public String generateJwtToken(User user, List<Role> roles) {
-        Claims claims = Jwts.claims().setSubject(user.getLogin()).build();
+    public static String generateJwtToken(String login, List<Role> roles) {
+        Claims claims = Jwts.claims().setSubject(login).build();
         claims.put("roles", roles.stream().map(Enum::name).toList());
 
         return Jwts.builder()
@@ -30,7 +29,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    public boolean validateJwtToken(String token) {
+    public static boolean validateJwtToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).build().parseClaimsJws(token);
             return true;
@@ -40,13 +39,19 @@ public class JwtUtils {
         return false;
     }
 
-    public List<Role> getRolesFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    public static Claims getClaimsFromJwtToken(String token) {
+        if (validateJwtToken(token)) {
+            return Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        }
+        return null;
+    }
 
+    public static List<Role> getRolesFromToken(String token) {
+        Claims claims = getClaimsFromJwtToken(token);
         List<String> rolesAsString = (List<String>) claims.get("roles");
         return rolesAsString.stream()
                 .map(Role::valueOf) // Konwersja String to Enum
