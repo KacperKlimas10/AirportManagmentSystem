@@ -1,6 +1,5 @@
 package org.pl.serwis_logowania.repositories;
 
-import org.pl.serwis_logowania.config.DatabaseConfig;
 import org.pl.serwis_logowania.entities.User;
 import org.pl.serwis_logowania.utils.HashHandler;
 import org.springframework.dao.DataAccessException;
@@ -12,7 +11,11 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
-    JdbcTemplate jdbcTemplate= DatabaseConfig.getConfiguredTemplate();
+    private final JdbcTemplate jdbcTemplate;
+
+    public UserRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public User findByLogin(String login) {
         String query = "SELECT * FROM Użytkownik WHERE login = ?;";

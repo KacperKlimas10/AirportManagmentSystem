@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class JsonUser {
-    String username;
+    String login;
     String password;
 }

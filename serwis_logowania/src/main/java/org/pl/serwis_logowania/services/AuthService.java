@@ -17,11 +17,15 @@ import java.util.List;
 public class AuthService {
 
     String JWT_COOKIE_NAME = "jwtToken";
-    UserRepository userRepository = new UserRepository();
+    private final UserRepository userRepository;
+
+    public AuthService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void registerUser(JsonUser user) {
         User userquery = new User();
-        userquery.setLogin(user.getUsername());
+        userquery.setLogin(user.getLogin());
         userquery.setHasło(user.getPassword());
         userRepository.insertUser(userquery);}
 
@@ -31,9 +35,9 @@ public class AuthService {
 
     public ResponseCookie loginUserCookie(JsonUser userFromJSON) {
         if (HashHandler.validateHash(userFromJSON.getPassword(),
-                userRepository.findByLogin(userFromJSON.getUsername()).getHasło()))
+                userRepository.findByLogin(userFromJSON.getLogin()).getHasło()))
         {
-            User AuthUser = userRepository.findByLogin(userFromJSON.getUsername());
+            User AuthUser = userRepository.findByLogin(userFromJSON.getLogin());
             // Tworzymy JWT Token
             String userToken = JwtUtils.generateJwtToken(AuthUser.getLogin(), AuthUser.getRola());
             // Tworzymy ciastko z tokenem

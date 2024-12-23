@@ -14,7 +14,11 @@ import java.util.List;
 @RequestMapping("/auth")
 public class AuthServiceController {
 
-    AuthService authService = new AuthService();
+    private final AuthService authService;
+
+    public AuthServiceController(AuthService authService) {
+        this.authService = authService;
+    }
 
     @GetMapping("/verifytoken")
     public ResponseEntity<?> verifyToken(HttpServletRequest request) {
@@ -49,7 +53,7 @@ public class AuthServiceController {
         try {
             ResponseCookie responseCookie = authService.loginUserCookie(user);
             response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
-            return ResponseEntity.ok("Logged in :D");
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -71,9 +75,9 @@ public class AuthServiceController {
             ResponseCookie responseCookie = authService.refreshJwtToken(request);
             if (responseCookie != null) {
                 response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
-                return ResponseEntity.ok("Token refreshed");
+                return ResponseEntity.ok().build();
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

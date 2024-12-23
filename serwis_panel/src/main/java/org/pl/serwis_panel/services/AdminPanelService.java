@@ -5,11 +5,11 @@ import org.pl.serwis_panel.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PanelService {
+public class AdminPanelService {
 
     private final UserRepository userRepository;
 
-    public PanelService(UserRepository userRepository) {
+    public AdminPanelService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

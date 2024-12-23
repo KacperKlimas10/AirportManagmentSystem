@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.pl.serwis_panel.entities.enums.Role;
 
 @RequiredArgsConstructor
 @Getter
