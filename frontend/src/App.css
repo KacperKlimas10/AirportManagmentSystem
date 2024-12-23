@@ -77,10 +77,19 @@
 
   .dashboard-body {
     width: 100%;
-    height: 90vh;
+    height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .dashboard-text {
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+    color: white;
+    font-size: 30px;
+    align-items: center;
   }
 
   .dashboard-header {

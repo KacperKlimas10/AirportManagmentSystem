@@ -1,12 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+
+    const [name, setName] = useState();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchName = async () => {
+            try {
+                const response = await fetch("http://localhost:8081/auth/verifytoken", {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (response.ok) {
+                    const fetchedName = await response.text();
+                    setName(fetchedName);
+                } else {
+                    console.error("Failed to fetch name");
+                }
+            } catch (error) {
+                console.error("Error fetching name:", error);
+            }
+        };
+
+        fetchName();
+    }, []);
 
     const handleNavigation = (role) => {
         navigate(`/${role}`);
     };
+
 
     // nav handlers
     return (
@@ -17,6 +41,9 @@ function Dashboard() {
                         <i className="bi bi-person-circle"></i>
                     </button>
                 </div>
+            </div>
+            <div className="dashboard-text">
+                <p>Witaj, {name}</p>
             </div>
             <div className="dashboard-body">
                 <div className="icon-grid">

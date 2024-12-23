@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const [credentials, setCredentials] = useState({ username: "", password: "" });
+    const [credentials, setCredentials] = useState({ login: "", password: "" });
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -10,20 +10,25 @@ function Login() {
     // async function for login (commented the backend endpoint attempt for testing reasons)
     const handleLogin = async () => {
         try {
-            navigate("/dashboard")
-            // const response = await fetch("/auth/login", {
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify(credentials),
-            // });
-            //
-            // if (response.ok) {
-            //     const data = await response.json();
-            //     localStorage.setItem("authToken", data.token); // Save JWT (json web token)
-            //     navigate("/dashboard");
-            // } else {
-            //     setError("Invalid username or password");
-            // }
+            // navigate("/dashboard")
+            const response = await fetch("http://localhost:8081/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(credentials),
+                credentials: "include",
+            });
+
+            if (response.ok) {
+                const cookies = document.cookie.split("; ");
+                const authTokenCookie = cookies.find(cookie => cookie.startsWith("authToken="));
+                if (authTokenCookie) {
+                    const token = authTokenCookie.split("=")[1];
+                    localStorage.setItem("authToken", token); // Save JWT (json web token)
+                }
+                navigate("/dashboard");
+            } else {
+                setError("Invalid username or password");
+            }
         } catch (err) {
             setError("An error occurred. Please try again.");
         }
@@ -37,7 +42,7 @@ function Login() {
                     <h2>Welcome to AMS PK</h2>
                     <div className="login-inputs">
                         <h3>Username</h3>
-                        <input type="text" placeholder="Input username" onChange={(e) => setCredentials({...credentials, username: e.target.value})}/>
+                        <input type="text" placeholder="Input username" onChange={(e) => setCredentials({...credentials, login: e.target.value})}/>
                     </div>
                     <div className="login-inputs">
                         <h3>Password</h3>

@@ -5,20 +5,9 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/serwis_logownia/pom.xml" />
-        <option value="$PROJECT_DIR$/serwis_token/pom.xml" />
-        <option value="$PROJECT_DIR$/serwis_db/pom.xml" />
-        <option value="$PROJECT_DIR$/serwis_logowania/pom.xml" />
-        <option value="$PROJECT_DIR$/serwis_logowania/serwis_panel/pom.xml" />
         <option value="$PROJECT_DIR$/serwis_panel/pom.xml" />
+        <option value="$PROJECT_DIR$/serwis_logowania/pom.xml" />
       </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/serwis_db/pom.xml" />
-        <option value="$PROJECT_DIR$/serwis_logowania/serwis_panel/pom.xml" />
-        <option value="$PROJECT_DIR$/serwis_token/pom.xml" />
-      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="20" project-jdk-type="JavaSDK">
