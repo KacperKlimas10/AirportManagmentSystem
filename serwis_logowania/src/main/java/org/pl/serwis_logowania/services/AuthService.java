@@ -1,8 +1,7 @@
 package org.pl.serwis_logowania.services;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.pl.serwis_logowania.config.DatabaseConfig;
-import org.pl.serwis_logowania.entities.Role;
+import lombok.Getter;
 import org.pl.serwis_logowania.entities.User;
 import org.pl.serwis_logowania.entities.JsonUser;
 import org.pl.serwis_logowania.repositories.UserRepository;
@@ -14,10 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Getter
 public class AuthService {
 
     String JWT_COOKIE_NAME = "jwtToken";
-    UserRepository userRepository = new UserRepository(DatabaseConfig.getConfiguredTemplate());
+    UserRepository userRepository = new UserRepository();
 
     public void registerUser(JsonUser user) {
         User userquery = new User();
@@ -27,7 +27,7 @@ public class AuthService {
 
     public List<User> getUsers() {return userRepository.getUsersList();}
 
-    public User getUser() {return userRepository.findByLogin("AdamusSkyrim");}
+    public User getUser(String user) {return userRepository.findByLogin(user);}
 
     public ResponseCookie loginUserCookie(JsonUser userFromJSON) {
         if (HashHandler.validateHash(userFromJSON.getPassword(),
@@ -56,10 +56,6 @@ public class AuthService {
             return CookieService.createCookie(JWT_COOKIE_NAME, newToken, 3600);
         }
         return null;
-    }
-
-    public List<Role> getRoleFromToken(String token) {
-        return JwtUtils.getRolesFromToken(token);
     }
 
     public String getUsernameFromToken(String token) {

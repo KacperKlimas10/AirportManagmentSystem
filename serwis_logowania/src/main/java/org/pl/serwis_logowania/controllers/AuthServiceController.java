@@ -8,7 +8,6 @@ import org.pl.serwis_logowania.services.AuthService;
 import org.pl.serwis_logowania.services.CookieService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
@@ -21,15 +20,14 @@ public class AuthServiceController {
     public ResponseEntity<?> verifyToken(HttpServletRequest request) {
         try {
             if (authService.jwtVerifyToken(request)) {
-                String token = CookieService.getCookieValue(request, "jwtToken");
+                String token = CookieService.getCookieValue(request, authService.getJWT_COOKIE_NAME());
                 String name = authService.getUsernameFromToken(token);
-                //List<Role> roles = authService.getRoleFromToken(token);
                 return ResponseEntity.ok(name);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
@@ -41,8 +39,10 @@ public class AuthServiceController {
     @GetMapping("/users")
     public List<User> getUsers() {return authService.getUsers();}
 
-    @GetMapping("/user")
-    public User getUser() {return authService.getUser();}
+    @GetMapping("/user/{name}")
+    public User getUser(@PathVariable("name") String name) {
+        return authService.getUser(name);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody JsonUser user, HttpServletResponse response) {
@@ -51,16 +51,17 @@ public class AuthServiceController {
             response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
             return ResponseEntity.ok("Logged in :D");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody JsonUser user) {
+    public ResponseEntity<?> register(@RequestBody JsonUser user) {
         try {
             authService.registerUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
@@ -75,7 +76,7 @@ public class AuthServiceController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 }

@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="serwis_logowania" />
+        <module name="serwis_panel" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,6 +22,7 @@
       <module name="lotnisko_projekt" options="-parameters" />
       <module name="serwis_db" options="-parameters" />
       <module name="serwis_logowania" options="-parameters" />
+      <module name="serwis_panel" options="-parameters" />
       <module name="serwis_token" options="-parameters" />
     </option>
   </component>
