@@ -32,7 +32,7 @@ public class AdminPanelServiceController {
     }
 
     @PatchMapping("/user/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody User user, HttpServletRequest request) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user, HttpServletRequest request) {
         try {
             TokenServiceClient tokenServiceClient = new TokenServiceClient();
             String login = tokenServiceClient.getUsernameFromExternalService(request);

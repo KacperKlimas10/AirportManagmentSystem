@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class TokenServiceClient {
 
     String JWT_COOKIE_NAME = "jwtToken";
-    private final WebClient webClient = WebClient.create("http://localhost:8080");
+    private final WebClient webClient = WebClient.create("http://localhost:8081");
 
     public String getUsernameFromExternalService(HttpServletRequest request) {
         if (request.getCookies() == null) {

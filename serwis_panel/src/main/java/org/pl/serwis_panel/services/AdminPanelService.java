@@ -17,7 +17,7 @@ public class AdminPanelService {
         return userRepository.getUserByLogin(login);
     }
 
-    public User getUserById(int id) {
+    public User getUserById(Long id) {
         return userRepository.getUserById(id);
     }
 

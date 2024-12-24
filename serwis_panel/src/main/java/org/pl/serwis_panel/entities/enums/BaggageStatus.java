@@ -1,6 +1,6 @@
 package org.pl.serwis_panel.entities.enums;
 
-public enum LuggageStatus {
+public enum BaggageStatus {
     w_trakcie_transportu,
     dostarczony
 }

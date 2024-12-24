@@ -1,6 +1,6 @@
 package org.pl.serwis_panel.entities.enums;
 
-public enum LuggageType {
+public enum BaggageType {
     podręczny,
     rejestrowany
 }
