@@ -96,3 +96,28 @@
   display: flex;
   text-align: center;
 }
+
+@media screen and (max-height: 1000px) {
+  .login-container-right{
+    height: 600px;
+    width: 400px;
+  }
+
+  .login-header {
+    font-size: 30px;
+  }
+
+  .notice {
+    font-size: 20px;
+  }
+
+  .confirm-btn {
+    font-size: 20px;
+    width: 200px;
+  }
+
+  .pklogo {
+    width: 200px;
+    height: 200px;
+  }
+}
