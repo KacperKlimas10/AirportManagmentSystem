@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PK from '../img/PK.png';
 
 function Login() {
     const [credentials, setCredentials] = useState({ login: "", password: "" });
@@ -36,20 +37,21 @@ function Login() {
 
     return (
         <div className="login">
-            <div classnName="left-pane"></div>
+            <div className="left-pane">
+                <img src={PK} alt="PK logo" className="pklogo"/>
+            </div>
             <div className="right-pane">
                 <div className="login-container-right">
-                    <h2>Welcome to AMS PK</h2>
-                    <div className="login-inputs">
-                        <h3>Username</h3>
-                        <input type="text" placeholder="Input username" onChange={(e) => setCredentials({...credentials, login: e.target.value})}/>
+                    <h1 className="login-header">LOG INTO AMS</h1>
+                    <div className="login-inputs-container">
+                        <input type="text" placeholder="Input username" className="login-inputs"
+                               onChange={(e) => setCredentials({...credentials, login: e.target.value})}/>
+                        <input type="password" placeholder="Input password" className="login-inputs"
+                               onChange={(e) => setCredentials({...credentials, password: e.target.value})}/>
                     </div>
-                    <div className="login-inputs">
-                        <h3>Password</h3>
-                        <input type="password" placeholder="Input password" onChange={(e) => setCredentials({...credentials, password: e.target.value})}/>
-                    </div>
-                    <button onClick={handleLogin} className="confirm-btn">Sign in</button>
+                    <button onClick={handleLogin} className="confirm-btn">LOGIN</button>
                     {error && <p style={{color: "red"}}>{error}</p>}
+                    <p className="notice">*if you don't have an account, please contact your system administrator</p>
                 </div>
             </div>
         </div>
