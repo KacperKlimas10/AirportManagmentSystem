@@ -2,6 +2,7 @@ package org.pl.serwis_logowania.services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
+import org.pl.serwis_logowania.entities.Role;
 import org.pl.serwis_logowania.entities.User;
 import org.pl.serwis_logowania.entities.JsonUser;
 import org.pl.serwis_logowania.repositories.UserRepository;
@@ -9,8 +10,6 @@ import org.pl.serwis_logowania.utils.HashHandler;
 import org.pl.serwis_logowania.utils.JwtUtils;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Getter
@@ -22,16 +21,6 @@ public class AuthService {
     public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    public void registerUser(JsonUser user) {
-        User userquery = new User();
-        userquery.setLogin(user.getLogin());
-        userquery.setHasło(user.getPassword());
-        userRepository.insertUser(userquery);}
-
-    public List<User> getUsers() {return userRepository.getUsersList();}
-
-    public User getUser(String user) {return userRepository.findByLogin(user);}
 
     public ResponseCookie loginUserCookie(JsonUser userFromJSON) {
         if (HashHandler.validateHash(userFromJSON.getPassword(),

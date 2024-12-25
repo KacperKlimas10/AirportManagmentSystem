@@ -1,16 +1,15 @@
 package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.pl.serwis_panel.entities.enums.Role;
 
-@RequiredArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
 @Entity
 @Table(name = "Użytkownik")
+@Data
 public class User {
 
     @Id
