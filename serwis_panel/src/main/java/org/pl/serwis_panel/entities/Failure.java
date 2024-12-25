@@ -2,7 +2,7 @@ package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pl.serwis_panel.entities.enums.IssueStatus;
+import org.pl.serwis_panel.entities.enums.FailureStatus;
 import java.util.Date;
 
 @Getter
@@ -30,5 +30,5 @@ public class Failure {
 
     @Column(name = "Status_awarii", nullable = false)
     @Enumerated(EnumType.STRING)
-    private IssueStatus issueStatus;
+    private FailureStatus issueStatus;
 }
