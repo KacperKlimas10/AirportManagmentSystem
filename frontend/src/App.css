@@ -1,3 +1,4 @@
+/* General styles */
 * {
   margin: 0;
   padding: 0;
@@ -21,8 +22,8 @@
   width: 40%;
   background-color: #303F80;
   height: 100vh;
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .pklogo {
@@ -40,7 +41,7 @@
   background-size: cover;
 }
 
-.login-container-right{
+.login-container-right {
   background: white;
   width: 600px;
   height: 800px;
@@ -52,13 +53,14 @@
   align-items: center;
 }
 
-.login-inputs-container{
+.login-inputs-container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 30%;
   width: 80%;
 }
+
 .login-inputs {
   height: 30px;
   border: none;
@@ -72,14 +74,14 @@
 }
 
 .confirm-btn {
-    background-color: #303F80;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    width: 300px;
-    height: 50px;
-    font-size: 25px;
-    font-family: Play, sans-serif;
+  background-color: #303F80;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  width: 300px;
+  height: 50px;
+  font-size: 25px;
+  font-family: Play, sans-serif;
 }
 
 .notice {
@@ -97,8 +99,144 @@
   text-align: center;
 }
 
+.dashboard-main {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  font-family: Play, sans-serif;
+}
+
+.dashboard-header {
+  height: 10vh;
+  background: #303F80;
+  width: 100%;
+  display: flex;
+}
+
+.dashboard-header-image {
+  height: 10vh;
+  width: 95%;
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-header-button {
+  height: 10vh;
+  width: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-button {
+  width: 75px;
+  height: 75px;
+  background-image: url(./img/logout.png);
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px #000000;
+}
+
+.pklogo-header {
+  height: 75px;
+  width: 75px;
+  margin-left: 20px;
+}
+
+.dashboard-message {
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.dashboard-buttons {
+  height: 40vh;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-button {
+  height: 200px;
+  width: 200px;
+  box-shadow: inset 0 0 20px #000000;
+  border: none;
+  border-radius: 10px;
+}
+
+.red {
+  background-color: #F85858;
+}
+
+.yellow {
+  background-color: #FFC64B;
+}
+
+.blue {
+  background-color: #79ACF9;
+}
+
+.green {
+  background-color: #7CD062;
+}
+
+.dashboard-button-icon {
+  height: 150px;
+  width: 150px;
+  -webkit-filter: drop-shadow(5px 5px 5px #222);
+  filter: drop-shadow(5px 5px 5px #222);
+}
+
+.button-heading {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1200px) {
+  .dashboard-buttons {
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+  }
+
+  .dashboard-button {
+    height: 150px;
+    width: 150px;
+  }
+
+  .dashboard-button-icon {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-buttons {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .dashboard-button {
+    height: 100px;
+    width: 100px;
+  }
+
+  .dashboard-button-icon {
+    height: 75px;
+    width: 75px;
+  }
+}
+
 @media screen and (max-height: 1000px) {
-  .login-container-right{
+  .login-container-right {
     height: 600px;
     width: 400px;
   }
@@ -119,5 +257,15 @@
   .pklogo {
     width: 200px;
     height: 200px;
+  }
+
+  .header-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .pklogo-header {
+    height: 50px;
+    width: 50px;
   }
 }
