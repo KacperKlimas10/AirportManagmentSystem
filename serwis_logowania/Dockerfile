@@ -1,10 +1,16 @@
-FROM openjdk:17-jdk-alpine
-LABEL authors="Ekipa"
+FROM ubuntu:latest AS build
 
-COPY target/*.jar app.jar
+WORKDIR /app
 
-EXPOSE 8080
+RUN apt-get update && apt-get install -y openjdk-17-jdk
 
-ENTRYPOINT ["java","-jar","app.jar"]
+COPY . .
 
+RUN chmod +x mvnw
+RUN ./mvnw clean install -DskipTests=true
 
+COPY ./target/*.jar app.jar
+
+EXPOSE 8081
+
+CMD ["java","-jar","app.jar"]

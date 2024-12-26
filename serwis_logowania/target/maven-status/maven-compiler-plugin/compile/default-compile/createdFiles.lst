@@ -5,6 +5,7 @@ org\pl\serwis_logowania\controllers\AuthServiceController.class
 org\pl\serwis_logowania\config\SecurityConfig.class
 org\pl\serwis_logowania\entities\Role.class
 org\pl\serwis_logowania\AuthServiceApplication.class
+org\pl\serwis_logowania\config\WebConfig.class
 org\pl\serwis_logowania\entities\JsonUser.class
 org\pl\serwis_logowania\services\CookieService.class
 org\pl\serwis_logowania\config\DatabaseConfig.class

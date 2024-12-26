@@ -1,6 +1,7 @@
 C:\Users\Kacper\Desktop\lotnisko_projekt\serwis_logowania\src\main\java\org\pl\serwis_logowania\AuthServiceApplication.java
 C:\Users\Kacper\Desktop\lotnisko_projekt\serwis_logowania\src\main\java\org\pl\serwis_logowania\config\DatabaseConfig.java
 C:\Users\Kacper\Desktop\lotnisko_projekt\serwis_logowania\src\main\java\org\pl\serwis_logowania\config\SecurityConfig.java
+C:\Users\Kacper\Desktop\lotnisko_projekt\serwis_logowania\src\main\java\org\pl\serwis_logowania\config\WebConfig.java
 C:\Users\Kacper\Desktop\lotnisko_projekt\serwis_logowania\src\main\java\org\pl\serwis_logowania\controllers\AuthServiceController.java
 C:\Users\Kacper\Desktop\lotnisko_projekt\serwis_logowania\src\main\java\org\pl\serwis_logowania\entities\JsonUser.java
 C:\Users\Kacper\Desktop\lotnisko_projekt\serwis_logowania\src\main\java\org\pl\serwis_logowania\entities\Role.java
