@@ -8,8 +8,8 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await fetch("http://localhost:8081/auth/verifytoken", {
-                    method: "GET",
+                const response = await fetch("http://localhost:8081/auth/login", {
+                    method: "POST",
                     credentials: "include",
                 });
                 setIsAuthenticated(response.ok);

@@ -2,7 +2,6 @@ package org.pl.serwis_logowania.services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
-import org.pl.serwis_logowania.entities.Role;
 import org.pl.serwis_logowania.entities.User;
 import org.pl.serwis_logowania.entities.JsonUser;
 import org.pl.serwis_logowania.repositories.UserRepository;

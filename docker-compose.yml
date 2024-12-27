@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  localhost:
+    image: serwis_logowania:latest
+    build:
+      context: ./serwis_logowania
+      dockerfile: Dockerfile
+    environment:
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/lotnisko_baza"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "haslo"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.MySQLDialect"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+#    ports:
+#      - "8081:8081"
+    networks:
+      - my-network
+    depends_on:
+      - db
+
+  serwis_panel:
+    image: serwis_panel:latest
+    build:
+      context: ./serwis_panel
+      dockerfile: Dockerfile
+    environment:
+      SERVER_PORT: 8082
+      SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/lotnisko_baza"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "haslo"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.MySQLDialect"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+#    ports:
+#      - "8082:8082"
+    networks:
+      - my-network
+    depends_on:
+      - db
+
+  serwis_frontend:
+    image: serwis_frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      REACT_APP_WEBSOCKET_URL: "wss://serwis_frontend:3000/ws/"
+    networks:
+      - my-network
+    depends_on:
+      - localhost
+      - serwis_panel
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - my-network
+    depends_on:
+      - serwis_frontend
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "6969:80"
+    networks:
+      - my-network
+    depends_on:
+      - db
+
+  db:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      MYSQL_USER: "root"
+      MYSQL_ROOT_PASSWORD: "haslo"
+      MYSQL_DATABASE: "lotnisko_baza"
+    ports:
+      - "3306:3306"
+    networks:
+      - my-network
+    volumes:
+      - db-vol:/var/lib/mysql
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  db-vol:
