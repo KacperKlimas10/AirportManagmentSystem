@@ -1,13 +1,6 @@
-FROM ubuntu:latest AS build
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
-
-RUN apt-get update && apt-get install -y openjdk-17-jdk
-
-COPY . .
-
-RUN chmod +x mvnw
-RUN ./mvnw clean install -DskipTests=true
 
 COPY ./target/*.jar app.jar
 
