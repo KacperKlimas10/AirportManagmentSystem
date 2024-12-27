@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import PK from "../img/PK.png";
+import staffIcon from "../img/persons-in-an-airport.png";
+import pilotIcon from "../img/pilot-of-airplane.png";
+import securityIcon from "../img/traveler-at-the-airport.png";
+import adminIcon from "../img/airport-worker.png";
+
 
 function Dashboard() {
 
@@ -36,25 +42,41 @@ function Dashboard() {
     return (
         <div className="dashboard-main">
             <div className="dashboard-header">
-                <div className="top-right">
-                    <button onClick={() => navigate("/account")}>
-                        <i className="bi bi-person-circle"></i>
+                <div className="dashboard-header-image">
+                    <img src={PK} alt="PK logo" className="pklogo-header"/>
+                </div>
+                <div className="dashboard-header-button">
+                    <button className="header-button" onClick={() => navigate("/account")}>
                     </button>
                 </div>
             </div>
-            <div className="dashboard-text">
-                <p>Witaj, {name}</p>
+            <div className="dashboard-message">
+                <p>Welcome to airport management system PK, {name}</p>
             </div>
-            <div className="dashboard-body">
-                <div className="icon-grid">
-                    <button onClick={() => handleNavigation("security")}>
-                        <h1>xd</h1>
-                        <p>Security Pane</p>
+            <div className="dashboard-buttons">
+                <div className="dashboard-button-container">
+                    <h2 className="button-heading">Staff</h2>
+                    <button className="dashboard-button green" onClick={() => handleNavigation("staff")}>
+                        <img src={staffIcon} alt="staffIcon" className="dashboard-button-icon"/>
                     </button>
-                    <button onClick={() => handleNavigation("admin")}>Administrator Pane</button>
-                    <button onClick={() => handleNavigation("pilot")}>Pilot Pane <i className="bi bi-airplane"></i>
+                </div>
+                <div className="dashboard-button-container">
+                    <h2 className="button-heading">Pilot</h2>
+                    <button className="dashboard-button blue" onClick={() => handleNavigation("staff")}>
+                        <img src={pilotIcon} alt="pilotIcon" className="dashboard-button-icon"/>
                     </button>
-                    <button onClick={() => handleNavigation("staff")}>Airport Staff Pane</button>
+                </div>
+                <div className="dashboard-button-container">
+                    <h2 className="button-heading">Security</h2>
+                    <button className="dashboard-button yellow" onClick={() => handleNavigation("staff")}>
+                        <img src={securityIcon} alt="securityIcon" className="dashboard-button-icon"/>
+                    </button>
+                </div>
+                <div className="dashboard-button-container">
+                    <h2 className="button-heading">Admin</h2>
+                    <button className="dashboard-button red" onClick={() => handleNavigation("staff")}>
+                        <img src={adminIcon} alt="adminIcon" className="dashboard-button-icon"/>
+                    </button>
                 </div>
             </div>
         </div>
