@@ -1,8 +1,11 @@
 package org.pl.serwis_logowania.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
+@Component
 public class HashHandler {
     public static String sha256(final String base) {
         try {

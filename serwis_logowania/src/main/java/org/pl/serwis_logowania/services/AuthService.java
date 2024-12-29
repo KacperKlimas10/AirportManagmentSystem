@@ -19,10 +19,12 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final CookieService cookieService;
+    private final JwtUtils jwtUtils;
 
-    public AuthService(UserRepository userRepository, CookieService cookieService) {
+    public AuthService(UserRepository userRepository, CookieService cookieService, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.cookieService = cookieService;
+        this.jwtUtils = jwtUtils;
     }
 
     public ResponseCookie loginUserCookie(JsonUser userFromJSON) {
@@ -43,6 +45,13 @@ public class AuthService {
             String newToken = JwtUtils.generateJwtToken(user.getLogin(), user.getRola());
             return cookieService.createCookie(JWT_COOKIE_NAME, newToken, maxAge);
         } else return null;
+    }
+
+    public String getNameFromJWTCookie(HttpServletRequest request) {
+        String token = cookieService.getCookieValue(request, JWT_COOKIE_NAME);
+        if (JwtUtils.validateJwtToken(token)) {
+            return JwtUtils.getUsernameFromJwtToken(token);
+        } return null;
     }
 
     public boolean jwtVerifyToken(String token) {

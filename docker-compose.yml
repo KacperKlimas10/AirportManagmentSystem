@@ -3,9 +3,6 @@ version: '3.8'
 services:
   serwis_logowania:
     image: kacperklimas10/serwis_logowania:latest
-    build:
-      context: ./serwis_logowania
-      dockerfile: Dockerfile
     environment:
       SERVER_PORT: 8081
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
@@ -22,9 +19,6 @@ services:
 
   serwis_panel:
     image: kacperklimas10/serwis_panel:latest
-    build:
-      context: ./serwis_panel
-      dockerfile: Dockerfile
     environment:
       SERVER_PORT: 8082
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
@@ -39,16 +33,6 @@ services:
         ipv4_address: 172.19.0.3
     ports:
       - "8082:8082"
-
-  serwis_frontend:
-    image: serwis_frontend:latest
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    networks:
-      - my-network
 
   nginx:
     image: nginx:latest
@@ -73,8 +57,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "haslo"
       MYSQL_DATABASE: "lotnisko_baza"
-    ports:
-      - "3306:3306"
     networks:
       - my-network
     volumes:
