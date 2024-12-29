@@ -26,6 +26,7 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
     }
+
     public List<User> getUsersList() {
         String query = "SELECT * FROM Użytkownik;";
         try {

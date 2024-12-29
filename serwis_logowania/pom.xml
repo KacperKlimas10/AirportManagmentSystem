@@ -99,6 +99,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>kacperklimas10/serwis_logowania</name>
+                    </image>
+                </configuration>
             </plugin>
         </plugins>
     </build>
