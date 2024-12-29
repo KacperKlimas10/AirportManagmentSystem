@@ -104,28 +104,28 @@
   text-align: center;
 }
 
-.dashboard-main {
+.main-container {
   height: 100vh;
   width: 100%;
   overflow: hidden;
   font-family: Play, sans-serif;
 }
 
-.dashboard-header {
+.page-header {
   height: 10vh;
   background: #303F80;
   width: 100%;
   display: flex;
 }
 
-.dashboard-header-image {
+.page-header-image {
   height: 10vh;
   width: 95%;
   display: flex;
   align-items: center;
 }
 
-.dashboard-header-button {
+.page-header-button {
   height: 10vh;
   width: 5%;
   display: flex;
@@ -208,6 +208,118 @@
   display: flex;
   justify-content: center;
   margin: 10px;
+}
+
+.staff-container {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.staff-heading {
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.staff-form {
+  height: 50vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.staff-input-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.staff-input {
+    height: 30px;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-family: Play, sans-serif;
+    font-size: 20px;
+}
+
+.staff-button {
+    height: 50px;
+    width: 200px;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 25px;
+    font-family: Play, sans-serif;
+    box-shadow: inset 0 0 15px #000000;
+}
+
+
+
+.staff-card {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.staff-card-container {
+  height: 300px;
+  width: 600px;
+  background: #dbdfe2;
+  border-radius: 20px;
+  box-shadow: inset 0 0 30px 1px #000000;
+  display: flex;
+}
+
+.staff-card-image {
+  width: 40%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.staff-card-info {
+    width: 60%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.user-icon {
+  width: 100px;
+  border: 1px solid #c5c5c5;
+  border-radius: 100px;
+  box-shadow: 0px 0px 5px 1px #000000;
+}
+
+.staff-card-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.staff-card-button {
+  height: 50px;
+  width: 200px;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 25px;
+  font-family: Play, sans-serif;
+  box-shadow: inset 0 0 15px #000000;
 }
 
 /* Responsive styles */
