@@ -120,17 +120,18 @@
 
 .page-header-image {
   height: 10vh;
-  width: 95%;
+  width: 90%;
   display: flex;
   align-items: center;
 }
 
 .page-header-button {
   height: 10vh;
-  width: 5%;
+  width: 10%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
+  margin-right: 30px;
 }
 
 .header-button {
@@ -143,6 +144,10 @@
   border: none;
   border-radius: 10px;
   box-shadow: inset 0 0 5px #000000;
+}
+
+.header-button-back {
+  background-image: url(./img/arrow.png);
 }
 
 .pklogo-header {
@@ -161,8 +166,7 @@
 
 .dashboard-buttons {
   height: 40vh;
-  display: grid;
-  grid-template-columns: repeat(4, auto);
+  display: flex;
   gap: 40px;
   justify-content: center;
   align-items: center;
