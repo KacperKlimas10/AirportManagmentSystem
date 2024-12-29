@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CookieService {
 
-    public static ResponseCookie createCookie(String name, String value, int maxAge) {
+    public ResponseCookie createCookie(String name, String value, int maxAge) {
         return ResponseCookie.from(name, value)
                 .httpOnly(true)
                 .secure(true)
@@ -18,7 +18,7 @@ public class CookieService {
                 .build();
     }
 
-    public static ResponseCookie deleteCookie(String name) {
+    public ResponseCookie deleteCookie(String name) {
         return ResponseCookie.from(name, "")
                 .httpOnly(true)
                 .secure(true)
@@ -28,15 +28,14 @@ public class CookieService {
                 .build();
     }
 
-    public static String getCookieValue(HttpServletRequest request, String name) {
+    public String getCookieValue(HttpServletRequest request, String name) {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals(name)) {
                     return cookie.getValue();
                 }
             }
-        }
-        return null;
+        } return null;
     }
 }
 

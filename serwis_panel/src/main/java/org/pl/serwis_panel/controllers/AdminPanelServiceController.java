@@ -23,13 +23,12 @@ public class AdminPanelServiceController {
         this.adminPanelService = adminPanelService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<Role> getRole(HttpServletRequest request) {
         Role rola = tokenServiceClient.getRoleFromName(request);
         if (rola != null) {
             return ResponseEntity.ok(rola);
-        }
-        else return ResponseEntity.status(403).build();
+        } else return ResponseEntity.status(403).build();
     }
 
     @GetMapping("/user/{id}")
@@ -37,8 +36,7 @@ public class AdminPanelServiceController {
         Role rola = tokenServiceClient.getRoleFromName(request);
         if (rola != null && rola.equals(Role.administrator)) {
             return ResponseEntity.ok(adminPanelService.getUserById(id));
-        }
-        else return ResponseEntity.status(403).build();
+        } else return ResponseEntity.status(403).build();
     }
 
     @GetMapping("/user")
@@ -46,8 +44,7 @@ public class AdminPanelServiceController {
         Role rola = tokenServiceClient.getRoleFromName(request);
         if (rola != null && rola.equals(Role.administrator)) {
             return ResponseEntity.ok(adminPanelService.getAllUsers());
-        }
-        else return ResponseEntity.status(403).build();
+        } else return ResponseEntity.status(403).build();
     }
 
     @PatchMapping("/user/{id}")
@@ -60,9 +57,7 @@ public class AdminPanelServiceController {
         User userPatch = adminPanelService.getUserById(id);
         if (userPatch == null || adminPanelService.updateUser(user, userPatch) == null) {
             return ResponseEntity.status(404).build();
-        }
-
-        return ResponseEntity.ok(userPatch);
+        } return ResponseEntity.ok(userPatch);
     }
 }
 

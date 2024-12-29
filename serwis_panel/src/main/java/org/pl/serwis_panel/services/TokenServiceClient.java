@@ -5,14 +5,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.pl.serwis_panel.entities.User;
 import org.pl.serwis_panel.entities.enums.Role;
 import org.pl.serwis_panel.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class TokenServiceClient {
 
+    @Value("${TokenServiceClient.url}")
+    private String webClientUrl = "http://localhost:8081/auth/verifytoken";
+
     String JWT_COOKIE_NAME = "jwtToken";
-    private final WebClient webClient = WebClient.create("http://localhost:8081");
     private final UserRepository userRepository;
 
     public TokenServiceClient(UserRepository userRepository) {
@@ -26,13 +29,16 @@ public class TokenServiceClient {
         for (Cookie cookie : request.getCookies()) {
             if (cookie.getName().equals(JWT_COOKIE_NAME)) {
                 try {
-                    return webClient.get()
-                            .uri("auth/verifytoken")
-                            .header("Cookie", "jwtToken=" + cookie.getValue())
+                    return WebClient.builder()
+                            .build()
+                            .get()
+                            .uri(webClientUrl)
+                            .header("Authorization", "Bearer " + cookie.getValue())
                             .retrieve()
                             .bodyToMono(String.class)
                             .block();
                 } catch (Exception e) {
+                    System.out.println(e);
                     return null;
                 }
             }
@@ -44,8 +50,6 @@ public class TokenServiceClient {
         User user = userRepository.getUserByLogin(login);
         if (login != null && user != null) {
             return user.getRole();
-        } else {
-            return null;
-        }
+        } else return null;
     }
 }

@@ -12,5 +12,5 @@ public class User {
     String Nazwisko;
     String Login;
     String Hasło;
-    List<Role> Rola;
+    Role Rola;
 }

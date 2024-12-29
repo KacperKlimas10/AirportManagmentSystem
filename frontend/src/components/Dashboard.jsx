@@ -15,7 +15,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchName = async () => {
             try {
-                const response = await fetch("http://localhost:8081/auth/verifytoken", {
+                const response = await fetch("http://serwis_logowania:8081/auth/verifytoken", {
                     method: "GET",
                     credentials: "include",
                 });

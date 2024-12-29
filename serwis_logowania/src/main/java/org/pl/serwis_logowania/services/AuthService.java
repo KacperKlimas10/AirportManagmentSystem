@@ -2,8 +2,8 @@ package org.pl.serwis_logowania.services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
-import org.pl.serwis_logowania.entities.User;
 import org.pl.serwis_logowania.entities.JsonUser;
+import org.pl.serwis_logowania.entities.User;
 import org.pl.serwis_logowania.repositories.UserRepository;
 import org.pl.serwis_logowania.utils.HashHandler;
 import org.pl.serwis_logowania.utils.JwtUtils;
@@ -15,10 +15,14 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     String JWT_COOKIE_NAME = "jwtToken";
-    private final UserRepository userRepository;
+    private final int maxAge = 3600;
 
-    public AuthService(UserRepository userRepository) {
+    private final UserRepository userRepository;
+    private final CookieService cookieService;
+
+    public AuthService(UserRepository userRepository, CookieService cookieService) {
         this.userRepository = userRepository;
+        this.cookieService = cookieService;
     }
 
     public ResponseCookie loginUserCookie(JsonUser userFromJSON) {
@@ -26,28 +30,23 @@ public class AuthService {
                 userRepository.findByLogin(userFromJSON.getLogin()).getHasło()))
         {
             User AuthUser = userRepository.findByLogin(userFromJSON.getLogin());
-            // Tworzymy JWT Token
             String userToken = JwtUtils.generateJwtToken(AuthUser.getLogin(), AuthUser.getRola());
-            // Tworzymy ciastko z tokenem
-            return CookieService.createCookie(JWT_COOKIE_NAME, userToken, 3600);
-        }
-        return null;
-    }
-
-    public boolean jwtVerifyToken(HttpServletRequest request) {
-        String token = CookieService.getCookieValue(request, JWT_COOKIE_NAME);
-        return JwtUtils.validateJwtToken(token);
+            return cookieService.createCookie(JWT_COOKIE_NAME, userToken, maxAge);
+        } else return null;
     }
 
     public ResponseCookie refreshJwtToken(HttpServletRequest request) {
-        String token = CookieService.getCookieValue(request, JWT_COOKIE_NAME);
+        String token = cookieService.getCookieValue(request, JWT_COOKIE_NAME);
         if (JwtUtils.validateJwtToken(token)) {
             String username = JwtUtils.getUsernameFromJwtToken(token);
             User user = userRepository.findByLogin(username);
             String newToken = JwtUtils.generateJwtToken(user.getLogin(), user.getRola());
-            return CookieService.createCookie(JWT_COOKIE_NAME, newToken, 3600);
-        }
-        return null;
+            return cookieService.createCookie(JWT_COOKIE_NAME, newToken, maxAge);
+        } else return null;
+    }
+
+    public boolean jwtVerifyToken(String token) {
+        return JwtUtils.validateJwtToken(token);
     }
 
     public String getUsernameFromToken(String token) {

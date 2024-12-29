@@ -12,7 +12,7 @@ function Login() {
     const handleLogin = async () => {
         try {
             // navigate("/dashboard")
-            const response = await fetch("http://localhost:8081/auth/login", {
+            const response = await fetch("http://serwis_logowania:8081/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(credentials),
