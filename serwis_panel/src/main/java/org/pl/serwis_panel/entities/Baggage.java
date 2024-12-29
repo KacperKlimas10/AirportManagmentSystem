@@ -2,8 +2,8 @@ package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pl.serwis_panel.entities.enums.BaggageStatus;
-import org.pl.serwis_panel.entities.enums.BaggageType;
+import org.pl.serwis_panel.enums.BaggageStatus;
+import org.pl.serwis_panel.enums.BaggageType;
 
 import java.util.List;
 

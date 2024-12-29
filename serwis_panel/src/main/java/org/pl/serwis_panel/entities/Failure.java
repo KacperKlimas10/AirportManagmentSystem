@@ -2,7 +2,7 @@ package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pl.serwis_panel.entities.enums.FailureStatus;
+import org.pl.serwis_panel.enums.FailureStatus;
 import java.util.Date;
 
 @Getter

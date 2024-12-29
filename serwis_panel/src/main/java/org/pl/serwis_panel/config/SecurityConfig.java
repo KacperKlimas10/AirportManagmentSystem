@@ -14,7 +14,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("panel/admin/**")
+                        .requestMatchers("panel/**")
                         .permitAll()
                         .anyRequest().authenticated()
                 ).csrf(csrf -> csrf.disable())

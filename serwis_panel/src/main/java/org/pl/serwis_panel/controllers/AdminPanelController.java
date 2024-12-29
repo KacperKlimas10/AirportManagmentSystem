@@ -1,7 +1,7 @@
 package org.pl.serwis_panel.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.pl.serwis_panel.entities.enums.Role;
+import org.pl.serwis_panel.enums.Role;
 import org.pl.serwis_panel.services.TokenServiceClient;
 import org.pl.serwis_panel.entities.User;
 import org.pl.serwis_panel.services.AdminPanelService;
@@ -12,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/panel/admin")
-public class AdminPanelServiceController {
+public class AdminPanelController {
 
     private final TokenServiceClient tokenServiceClient;
     private final AdminPanelService adminPanelService;
 
-    public AdminPanelServiceController(AdminPanelService adminPanelService,
-                                       TokenServiceClient tokenServiceClient) {
+    public AdminPanelController(AdminPanelService adminPanelService,
+                                TokenServiceClient tokenServiceClient) {
         this.tokenServiceClient = tokenServiceClient;
         this.adminPanelService = adminPanelService;
     }

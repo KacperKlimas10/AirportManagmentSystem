@@ -2,7 +2,7 @@ package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pl.serwis_panel.entities.enums.GateStatus;
+import org.pl.serwis_panel.enums.GateStatus;
 
 import java.util.List;
 

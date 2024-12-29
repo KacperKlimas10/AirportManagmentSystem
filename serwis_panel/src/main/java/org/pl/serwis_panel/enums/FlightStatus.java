@@ -1,4 +1,4 @@
-package org.pl.serwis_panel.entities.enums;
+package org.pl.serwis_panel.enums;
 
 public enum FlightStatus {
     zaplanowany,

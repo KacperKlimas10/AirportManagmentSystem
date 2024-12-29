@@ -3,7 +3,7 @@ package org.pl.serwis_panel.services;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.pl.serwis_panel.entities.User;
-import org.pl.serwis_panel.entities.enums.Role;
+import org.pl.serwis_panel.enums.Role;
 import org.pl.serwis_panel.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
