@@ -10,6 +10,7 @@ function AirportStaffPane() {
     const [surname, setSurname] = useState("");
     const [passenger, setPassenger] = useState(null);
     const [error, setError] = useState("");
+    const [checkInStatus, setCheckInStatus] = useState("");
 
     const handleCheckIn = async () => {
         try {
@@ -35,11 +36,57 @@ function AirportStaffPane() {
         }
     };
 
-    const handleAccept = () => {
+
+
+    const handleAccept = async () => {
+        try {
+            const response = await fetch(`http://localhost:8082/panel/staff/passenger?name=${name}&surname=${surname}`, {
+                method: "PATCH",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    checkInStatus: "odprawiony"
+                })
+            });
+            if (response.status === 204) {
+                setCheckInStatus("odprawiony");
+            } else if (response.status === 404) {
+                setError("Passenger is invalid");
+                setIsCheckedIn(false);
+            } else {
+                console.error("Failed to check-in the passenger");
+            }
+        } catch (error) {
+            console.error("Check-in error:", error);
+        }
         setIsCheckedIn(false);
     };
 
-    const handleDeny = () => {
+    const handleDeny = async () => {
+        try {
+            const response = await fetch(`http://localhost:8082/panel/staff/passenger?name=${name}&surname=${surname}`, {
+                method: "PATCH",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    checkInStatus: "odmowa"
+                })
+            });
+            if (response.status === 204) {
+                setCheckInStatus("odmowa");
+            } else if (response.status === 404) {
+                setError("Passenger is invalid");
+                setIsCheckedIn(false);
+            } else {
+                console.error("Failed to check-in the passenger");
+            }
+        } catch (error) {
+            console.error("Check-in error:", error);
+        }
         setIsCheckedIn(false);
     };
 
