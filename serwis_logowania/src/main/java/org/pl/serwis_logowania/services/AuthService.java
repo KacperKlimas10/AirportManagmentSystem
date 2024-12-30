@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     String JWT_COOKIE_NAME = "jwtToken";
-    private final int maxAge = 3600;
+    private final int CookieAge = 300;
 
     private final UserRepository userRepository;
     private final UserRepositoryCurrent userRepositoryCurrent;
@@ -34,13 +34,13 @@ public class AuthService {
         this.jwtUtils = jwtUtils;
     }
 
-    public ResponseCookie loginUserCookie(UserDTO userFromJSON) {
+    public ResponseCookie login(UserDTO userFromJSON) {
         if (HashHandler.validateHash(userFromJSON.getPassword(),
                 userRepositoryCurrent.findByLogin(userFromJSON.getLogin()).getPassword()))
         {
             User AuthUser = userRepositoryCurrent.findByLogin(userFromJSON.getLogin());
             String userToken = JwtUtils.generateJwtToken(AuthUser.getLogin(), AuthUser.getRole());
-            return cookieService.createCookie(JWT_COOKIE_NAME, userToken, maxAge);
+            return cookieService.createCookie(JWT_COOKIE_NAME, userToken, CookieAge);
         } else return null;
     }
 
@@ -50,8 +50,15 @@ public class AuthService {
             String username = JwtUtils.getUsernameFromJwtToken(token);
             User user = userRepositoryCurrent.findByLogin(username);
             String newToken = JwtUtils.generateJwtToken(user.getLogin(), user.getRole());
-            return cookieService.createCookie(JWT_COOKIE_NAME, newToken, maxAge);
+            return cookieService.createCookie(JWT_COOKIE_NAME, newToken, CookieAge);
         } else return null;
+    }
+
+    public ResponseCookie logout(HttpServletRequest request) {
+        String token = cookieService.getCookieValue(request, JWT_COOKIE_NAME);
+        if (JwtUtils.validateJwtToken(token)) {
+            return cookieService.deleteCookie(JWT_COOKIE_NAME);
+        } return null;
     }
 
     public String getNameFromJWTCookie(HttpServletRequest request) {
