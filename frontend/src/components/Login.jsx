@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthProvider";
 import PK from '../img/PK.png';
 
 function Login() {
     const [credentials, setCredentials] = useState({ login: "", password: "" });
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const { login: authenticate } = useAuth();
 
-
-    // async function for login (commented the backend endpoint attempt for testing reasons)
     const handleLogin = async () => {
         try {
-            // navigate("/dashboard")
-            const response = await fetch("http://serwis_logowania:8081/auth/login", {
+            const response = await fetch("http://localhost:8081/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(credentials),
@@ -26,6 +25,7 @@ function Login() {
                     const token = authTokenCookie.split("=")[1];
                     localStorage.setItem("authToken", token); // Save JWT (json web token)
                 }
+                authenticate(); // Set isAuthenticated to true
                 navigate("/dashboard");
             } else {
                 setError("Invalid username or password");

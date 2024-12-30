@@ -2,7 +2,6 @@ package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +33,10 @@ public class Passenger {
 
     @Column(name = "Status_odprawy", nullable = false)
     private String checkInStatus;
+
+    @Column(name = "Zdjęcie")
+    @Lob
+    private byte[] photo;
 
     @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Baggage> baggageList;

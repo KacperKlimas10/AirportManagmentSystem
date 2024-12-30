@@ -17,6 +17,14 @@ public class AuthServiceController {
         this.authService = authService;
     }
 
+    @GetMapping
+    public ResponseEntity<String> getNameFromCookie(HttpServletRequest request) {
+        String username = authService.getNameFromJWTCookie(request);
+        if (username != null) {
+            return ResponseEntity.ok(username);
+        } else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
     @GetMapping("/verifytoken")
     public ResponseEntity<?> verifyToken(HttpServletRequest request) {
         String authorizationHeader = request.getHeader("Authorization");

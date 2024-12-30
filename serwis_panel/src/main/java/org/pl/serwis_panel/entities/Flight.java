@@ -2,7 +2,7 @@ package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.pl.serwis_panel.entities.enums.FlightStatus;
+import org.pl.serwis_panel.enums.FlightStatus;
 
 import java.util.Date;
 import java.util.List;

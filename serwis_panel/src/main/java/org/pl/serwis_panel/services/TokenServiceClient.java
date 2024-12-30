@@ -3,7 +3,7 @@ package org.pl.serwis_panel.services;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.pl.serwis_panel.entities.User;
-import org.pl.serwis_panel.entities.enums.Role;
+import org.pl.serwis_panel.enums.Role;
 import org.pl.serwis_panel.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class TokenServiceClient {
 
     @Value("${TokenServiceClient.url}")
-    private String webClientUrl = "http://localhost:8081/auth/verifytoken";
+    private String webClientUrl;
 
     String JWT_COOKIE_NAME = "jwtToken";
     private final UserRepository userRepository;

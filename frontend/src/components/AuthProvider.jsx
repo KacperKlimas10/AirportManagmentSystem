@@ -5,28 +5,16 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const response = await fetch("http://serwis_logowania:8081/auth/verifytoken", {
-                    method: "GET",
-                    credentials: "include",
-                });
-                setIsAuthenticated(response.ok);
-            } catch (error) {
-                setIsAuthenticated(false);
-            }
-        };
+    const login = () => {
+        setIsAuthenticated(true);
+    };
 
-        const checkAuthAsync = async () => {
-            await checkAuth();
-        };
-
-        checkAuthAsync();
-    }, []);
+    const logout = () => {
+        setIsAuthenticated(false);
+    };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

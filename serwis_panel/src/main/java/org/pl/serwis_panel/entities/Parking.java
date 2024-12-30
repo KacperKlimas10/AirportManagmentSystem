@@ -2,7 +2,7 @@ package org.pl.serwis_panel.entities;
 
 import lombok.Data;
 import jakarta.persistence.*;
-import org.pl.serwis_panel.entities.enums.ParkingStatus;
+import org.pl.serwis_panel.enums.ParkingStatus;
 
 @Entity
 @Table(name = "Parking")
