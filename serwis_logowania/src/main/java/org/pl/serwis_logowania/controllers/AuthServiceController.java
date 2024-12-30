@@ -2,7 +2,7 @@ package org.pl.serwis_logowania.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.pl.serwis_logowania.entities.JsonUser;
+import org.pl.serwis_logowania.dto.UserDTO;
 import org.pl.serwis_logowania.services.AuthService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +38,7 @@ public class AuthServiceController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody JsonUser user, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody UserDTO user, HttpServletResponse response) {
         ResponseCookie responseCookie = authService.loginUserCookie(user);
         if (responseCookie != null) {
             response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());

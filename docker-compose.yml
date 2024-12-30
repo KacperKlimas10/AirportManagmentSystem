@@ -1,38 +1,38 @@
 version: '3.8'
 
 services:
-  serwis_logowania:
-    image: kacperklimas10/serwis_logowania:latest
-    environment:
-      SERVER_PORT: 8081
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: haslo
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
-      SPRING_JPA_HIBERNATE_DDL_AUTO: none
-    networks:
-      my-network:
-      backend:
-        ipv4_address: 172.19.0.2
-    ports:
-      - "8081:8081"
-
-  serwis_panel:
-    image: kacperklimas10/serwis_panel:latest
-    environment:
-      SERVER_PORT: 8082
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: haslo
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
-      SPRING_JPA_HIBERNATE_DDL_AUTO: none
-      TOKEN_SERVICE_URL: http://172.19.0.2:8081/auth/verifytoken
-    networks:
-      my-network:
-      backend:
-        ipv4_address: 172.19.0.3
-    ports:
-      - "8082:8082"
+#  serwis_logowania:
+#    image: kacperklimas10/serwis_logowania:latest
+#    environment:
+#      SERVER_PORT: 8081
+#      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: haslo
+#      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+#    networks:
+#      my-network:
+#      backend:
+#        ipv4_address: 172.19.0.2
+#    ports:
+#      - "8081:8081"
+#
+#  serwis_panel:
+#    image: kacperklimas10/serwis_panel:latest
+#    environment:
+#      SERVER_PORT: 8082
+#      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: haslo
+#      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+#      TOKEN_SERVICE_URL: http://172.19.0.2:8081/auth/verifytoken
+#    networks:
+#      my-network:
+#      backend:
+#        ipv4_address: 172.19.0.3
+#    ports:
+#      - "8082:8082"
 
 #  nginx:
 #    image: nginx:latest
