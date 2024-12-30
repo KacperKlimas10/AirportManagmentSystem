@@ -14,7 +14,7 @@ function AirportStaffPane() {
 
     const handleCheckIn = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/staff/passenger?name=${name}&surname=${surname}`, {
+            const response = await fetch(`http://localhost:8082/panel/staff/passenger?name=${name}&surname=${surname}`,{
                 method: "GET",
                 credentials: "include",
             });

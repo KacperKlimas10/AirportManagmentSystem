@@ -21,4 +21,19 @@ public class PassengerMapper {
             } else dto.setPhotoBase64(null);
             return dto;
     }
+
+    public static Passenger toEntity(Passenger passenger, PassengerDTO passengerDTO) {
+        if (passengerDTO.getName() != null) {passenger.setFirstName(passengerDTO.getName());}
+        if (passengerDTO.getSurname() != null) {passenger.setLastName(passengerDTO.getSurname());}
+        if (passengerDTO.getBirthDate() != null) {passenger.setBirthDate(passengerDTO.getBirthDate());}
+        if (passengerDTO.getDocumentNumber() != null) {passenger.setDocumentNumber(passengerDTO.getDocumentNumber());}
+        if (passengerDTO.getNationality() != null) {passenger.setNationality(passengerDTO.getNationality());}
+        if (passengerDTO.getCheckInStatus() != null) {passenger.setCheckInStatus(passengerDTO.getCheckInStatus());}
+
+        if (passengerDTO.getPhotoBase64() != null) {
+            byte[] photoBytes = Base64.getDecoder().decode(passengerDTO.getPhotoBase64());
+            passenger.setPhoto(photoBytes);
+        }
+        return passenger;
+    }
 }

@@ -13,7 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class TokenServiceClient {
 
     @Value("${TokenServiceClient.url}")
-    private String webClientUrl = "http://localhost:8081/auth/verifytoken";
+    private String webClientUrl;
 
     String JWT_COOKIE_NAME = "jwtToken";
     private final UserRepository userRepository;

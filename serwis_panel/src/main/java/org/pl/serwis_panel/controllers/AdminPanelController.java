@@ -48,7 +48,9 @@ public class AdminPanelController {
     }
 
     @PatchMapping("/user/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user, HttpServletRequest request) {
+    public ResponseEntity<User> updateUser(@PathVariable int id,
+                                           @RequestBody User user,
+                                           HttpServletRequest request) {
         Role rola = tokenServiceClient.getRoleFromName(request);
         if (rola == null  || !rola.equals(Role.administrator)) {
             return ResponseEntity.status(403).build();

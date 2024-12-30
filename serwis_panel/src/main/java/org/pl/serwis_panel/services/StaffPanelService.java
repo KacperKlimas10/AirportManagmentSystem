@@ -21,4 +21,12 @@ public class StaffPanelService {
             return PassengerMapper.toResponseDTO(passenger);
         } else return null;
     }
+
+    public boolean updatePassenger(String name, String surname, PassengerDTO passengerDTO) {
+        Passenger passenger = passengerRepository.getPassagerByName(name, surname);
+        if (passenger != null) {
+            passengerRepository.save(PassengerMapper.toEntity(passenger, passengerDTO));
+            return true;
+        } else return false;
+    }
 }

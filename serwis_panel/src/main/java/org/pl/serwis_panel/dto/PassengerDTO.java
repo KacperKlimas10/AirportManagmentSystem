@@ -11,5 +11,6 @@ public class PassengerDTO {
     private Date birthDate;
     private String documentNumber;
     private String nationality;
+    private String checkInStatus;
     private String photoBase64;
 }
