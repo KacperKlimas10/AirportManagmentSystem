@@ -52,6 +52,7 @@ function AirportStaffPane() {
             });
             if (response.status === 204) {
                 setCheckInStatus("odprawiony");
+                setError("Check-in successful");
             } else if (response.status === 404) {
                 setError("Passenger is invalid");
                 setIsCheckedIn(false);
@@ -78,6 +79,7 @@ function AirportStaffPane() {
             });
             if (response.status === 204) {
                 setCheckInStatus("odmowa");
+                setError("Check-in failed");
             } else if (response.status === 404) {
                 setError("Passenger is invalid");
                 setIsCheckedIn(false);
@@ -97,6 +99,14 @@ function AirportStaffPane() {
         const day = String(date.getDate()).padStart(2, '0');
         return `${day}.${month}.${year}`; // Format the date as YYYY.MM.DD
     };
+
+    function messageColor(){
+        if(checkInStatus === "odprawiony"){
+            return "green";
+        } else {
+            return "red";
+        }
+    }
 
     return (
         <div className="main-container">
@@ -133,7 +143,7 @@ function AirportStaffPane() {
                             />
                         </div>
                         <button className="staff-button green" onClick={handleCheckIn}>Check-In</button>
-                        {error && <p style={{color: "red"}}>{error}</p>}
+                        {error !== null && <p style={{color: messageColor()}}>{error}</p>}
                     </div>
                 )}
                 {isCheckedIn && passenger && (
