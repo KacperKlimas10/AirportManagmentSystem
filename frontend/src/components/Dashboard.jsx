@@ -69,13 +69,11 @@ function Dashboard() {
                     <img src={PK} alt="PK logo" className="pklogo-header"/>
                 </div>
                 <div className="page-header-button">
-                    <button className="header-button" onClick={logout}>
-                        Logout
-                    </button>
+                    <button className="header-button" onClick={logout}></button>
                 </div>
             </div>
             <div className="dashboard-message">
-                <p>Welcome to airport management system PK, {name}</p>
+                <p>Welcome to airport management system PK {name}</p>
             </div>
             <div className="dashboard-buttons">
                 {(role === "administrator" || role === "obsługa_techniczna") && (
