@@ -2,7 +2,7 @@ package org.pl.serwis_logowania.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.pl.serwis_logowania.entities.JsonUser;
+import org.pl.serwis_logowania.dto.UserDTO;
 import org.pl.serwis_logowania.services.AuthService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class AuthServiceController {
     }
 
     @GetMapping
-    public ResponseEntity<String> getNameFromCookie(HttpServletRequest request) {
+    public ResponseEntity<String> getNameFromJWT(HttpServletRequest request) {
         String username = authService.getNameFromJWTCookie(request);
         if (username != null) {
             return ResponseEntity.ok(username);
@@ -34,12 +34,12 @@ public class AuthServiceController {
                 String name = authService.getUsernameFromToken(token);
                 return ResponseEntity.ok(name);
             }
-        } return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+        } return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody JsonUser user, HttpServletResponse response) {
-        ResponseCookie responseCookie = authService.loginUserCookie(user);
+    public ResponseEntity<?> login(@RequestBody UserDTO user, HttpServletResponse response) {
+        ResponseCookie responseCookie = authService.login(user);
         if (responseCookie != null) {
             response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
             return ResponseEntity.ok().build();
@@ -47,8 +47,21 @@ public class AuthServiceController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<?> refreshJwtToken(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> refreshJwtToken(HttpServletRequest request,
+                                             HttpServletResponse response)
+    {
         ResponseCookie responseCookie = authService.refreshJwtToken(request);
+        if (responseCookie != null) {
+            response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
+            return ResponseEntity.ok().build();
+        } else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request,
+                                    HttpServletResponse response)
+    {
+        ResponseCookie responseCookie = authService.logout(request);
         if (responseCookie != null) {
             response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
             return ResponseEntity.ok().build();

@@ -41,7 +41,7 @@ public class UserRepository {
         try {
             jdbcTemplate.update(
                     "INSERT INTO Użytkownik (Login, Hasło) VALUES (?, ?);",
-                    user.getLogin(), HashHandler.sha256(user.getHasło()));
+                    user.getLogin(), HashHandler.sha256(user.getPassword()));
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }

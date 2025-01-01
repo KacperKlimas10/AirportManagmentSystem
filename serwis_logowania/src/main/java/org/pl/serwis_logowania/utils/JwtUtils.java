@@ -1,7 +1,7 @@
 package org.pl.serwis_logowania.utils;
 
 import io.jsonwebtoken.*;
-import org.pl.serwis_logowania.entities.Role;
+import org.pl.serwis_logowania.enums.Role;
 import org.springframework.stereotype.Component;
 import java.util.Base64;
 import java.util.*;
@@ -9,11 +9,11 @@ import java.util.*;
 @Component
 public class JwtUtils {
 
-    private static final String jwtSecret="ThisIsASecureSecretKeyForHS512ThatIsAtLeast64CharactersLongAndMore";
+    private static final String jwtSecret = "ThisIsASecureSecretKeyForHS512ThatIsAtLeast64CharactersLongAndMore";
 
     private static final String encodedKey = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
 
-    private static final long jwtExpirationMs=900000;
+    private static final long jwtExpirationMs = 300_000;
 
     public static String generateJwtToken(String login, Role roles) {
 

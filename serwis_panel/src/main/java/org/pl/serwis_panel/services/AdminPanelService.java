@@ -1,6 +1,8 @@
 package org.pl.serwis_panel.services;
 
+import org.pl.serwis_panel.dto.UserDTO;
 import org.pl.serwis_panel.entities.User;
+import org.pl.serwis_panel.mappers.UserMapper;
 import org.pl.serwis_panel.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +21,18 @@ public class AdminPanelService {
 
     public List<User> getAllUsers() {return userRepository.findAll();}
 
-    public User updateUser(User user, User userPatch) {
-        if (userPatch != null) {
-            userPatch.setId(user.getId());
-            if (user.getName() != null) userPatch.setName(user.getName());
-            if (user.getSurname() != null) userPatch.setSurname(user.getSurname());
-            if (user.getLogin() != null) userPatch.setLogin(user.getLogin());
-            if (user.getPassword() != null) userPatch.setPassword(user.getPassword());
-            if (user.getRole() != null) userPatch.setRole(user.getRole());
-            return userRepository.save(userPatch);
+    public void deleteUser(User user) {userRepository.delete(user);}
+
+    public UserDTO updateUser(UserDTO userDTO, int id) {
+        User user = UserMapper.modifyUser(userDTO, getUserById(id));
+        if (user != null) {
+            userRepository.save(user);
+            return userDTO;
         } else return null;
+    }
+
+    public void createUser(UserDTO userDTO) {
+        User user = UserMapper.addUser(userDTO);
+        userRepository.save(user);
     }
 }
