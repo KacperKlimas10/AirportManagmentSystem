@@ -17,6 +17,22 @@ function PilotPane() {
                     </button>
                 </div>
             </div>
+            <div className="container-middle">
+                <div className="headingInfo">
+                    <h1>Pilot Panel</h1>
+                </div>
+                <div className="form-wrapper">
+                    <div className="form-list">
+                        <div className="form-list-item">
+                            <h2>Plane ID:</h2>
+                            <input type="text" placeholder="Input Plane ID" className="input-box"/>
+                        </div>
+                    </div>
+                    <div className="single-centered-button">
+                        <button className="button-styled blue">CHECK</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

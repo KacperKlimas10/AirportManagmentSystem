@@ -79,7 +79,7 @@ function AirportStaffPane() {
             });
             if (response.status === 204) {
                 setCheckInStatus("odmowa");
-                setError("Check-in failed");
+                setError("Passenger denied check-in");
             } else if (response.status === 404) {
                 setError("Passenger is invalid");
                 setIsCheckedIn(false);
@@ -119,8 +119,8 @@ function AirportStaffPane() {
                     </button>
                 </div>
             </div>
-            <div className="staff-container">
-                <div className="staff-heading">
+            <div className="container-middle">
+                <div className="headingInfo">
                     <h1>Passenger Check-In</h1>
                 </div>
                 {!isCheckedIn && (
@@ -130,14 +130,14 @@ function AirportStaffPane() {
                             <input
                                 type="text"
                                 placeholder="Name"
-                                className="staff-input"
+                                className="input-box"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
                             <input
                                 type="text"
                                 placeholder="Last Name"
-                                className="staff-input"
+                                className="input-box"
                                 value={surname}
                                 onChange={(e) => setSurname(e.target.value)}
                             />
@@ -173,15 +173,11 @@ function AirportStaffPane() {
                                     <h3>Document Number</h3>
                                     <h4>{passenger.documentNumber}</h4>
                                 </div>
-                                <div className="passenger-info">
-                                    <h3>Flight ID</h3>
-                                    <h4>{passenger.flightId}</h4>
-                                </div>
                             </div>
                         </div>
                         <div className="staff-card-buttons">
-                            <button className="staff-card-button green" onClick={handleAccept}>ACCEPT</button>
-                            <button className="staff-card-button red" onClick={handleDeny}>DENY</button>
+                            <button className="button-styled green" onClick={handleAccept}>ACCEPT</button>
+                            <button className="button-styled red" onClick={handleDeny}>DENY</button>
                         </div>
                     </div>
                 )}
