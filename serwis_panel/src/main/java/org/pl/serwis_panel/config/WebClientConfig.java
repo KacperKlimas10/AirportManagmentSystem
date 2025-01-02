@@ -11,10 +11,20 @@ public class WebClientConfig {
     @Value("${token.service.url}")
     String tokenServiceUrl;
 
+    @Value("${pilot.weather.service.url}")
+    String pilotWeatherServiceUrl;
+
      @Bean
      public WebClient webClientTokenServiceURL() {
          return WebClient.builder()
                  .baseUrl(tokenServiceUrl)
+                 .build();
+     }
+
+     @Bean
+     public WebClient webClientPilotServiceWeatherURL() {
+         return WebClient.builder()
+                 .baseUrl(pilotWeatherServiceUrl)
                  .build();
      }
 }
