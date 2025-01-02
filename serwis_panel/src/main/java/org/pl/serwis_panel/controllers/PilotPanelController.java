@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,7 +30,7 @@ public class PilotPanelController {
         Role rola = this.tokenServiceClient.getRoleFromName(request);
         if (rola == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if (rola == Role.pilot || rola == Role.administrator) {
-            List<Airplane> planes = this.pilotPanelService.GetPlanes();
+            List<Airplane> planes = this.pilotPanelService.getPlanes();
             if (planes == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             } else {

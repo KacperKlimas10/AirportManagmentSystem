@@ -2,7 +2,6 @@ package org.pl.serwis_panel.services;
 
 import org.pl.serwis_panel.entities.Airplane;
 import org.pl.serwis_panel.repositories.AirplaneRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +14,7 @@ public class PilotPanelService {
         this.airplaneRepository = airplaneRepository;
     }
 
-    public List<Airplane> GetPlanes() {
-
+    public List<Airplane> getPlanes() {
         return this.airplaneRepository.findAll();
     }
 }
