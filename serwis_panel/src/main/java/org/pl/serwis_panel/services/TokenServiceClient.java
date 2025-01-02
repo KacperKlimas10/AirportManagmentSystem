@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class TokenServiceClient {
 
-    @Value("${TokenServiceClient.url}")
+    @Value("${token.service.url}")
     private String webClientUrl;
 
     String JWT_COOKIE_NAME = "jwtToken";

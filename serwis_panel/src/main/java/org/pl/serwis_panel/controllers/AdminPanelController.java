@@ -1,6 +1,7 @@
 package org.pl.serwis_panel.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.pl.serwis_panel.dto.UserDTO;
 import org.pl.serwis_panel.enums.Role;
 import org.pl.serwis_panel.services.TokenServiceClient;
 import org.pl.serwis_panel.entities.User;
@@ -31,14 +32,6 @@ public class AdminPanelController {
         } else return ResponseEntity.status(403).build();
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id, HttpServletRequest request) {
-        Role rola = tokenServiceClient.getRoleFromName(request);
-        if (rola != null && rola.equals(Role.administrator)) {
-            return ResponseEntity.ok(adminPanelService.getUserById(id));
-        } else return ResponseEntity.status(403).build();
-    }
-
     @GetMapping("/user")
     public ResponseEntity<List<User>> getAllUsers(HttpServletRequest request) {
         Role rola = tokenServiceClient.getRoleFromName(request);
@@ -47,19 +40,46 @@ public class AdminPanelController {
         } else return ResponseEntity.status(403).build();
     }
 
+    @PostMapping("/user")
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+        Role rola = tokenServiceClient.getRoleFromName(request);
+        if (rola != null && rola.equals(Role.administrator)) {
+            adminPanelService.createUser(userDTO);
+            return ResponseEntity.status(201).build();
+        } else return ResponseEntity.status(403).build();
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable int id, HttpServletRequest request) {
+        Role rola = tokenServiceClient.getRoleFromName(request);
+        if (rola != null && rola.equals(Role.administrator)) {
+            return ResponseEntity.ok(adminPanelService.getUserById(id));
+        } else return ResponseEntity.status(403).build();
+    }
+
     @PatchMapping("/user/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable int id,
-                                           @RequestBody User user,
+    public ResponseEntity<?> updateUser(@PathVariable int id,
+                                           @RequestBody UserDTO userDTO,
                                            HttpServletRequest request) {
         Role rola = tokenServiceClient.getRoleFromName(request);
-        if (rola == null  || !rola.equals(Role.administrator)) {
-            return ResponseEntity.status(403).build();
-        }
+        if (rola != null && rola.equals(Role.administrator)) {
+            UserDTO user = adminPanelService.updateUser(userDTO, id);
+            if (user != null) {
+                return ResponseEntity.noContent().build();
+            } else return ResponseEntity.noContent().build();
+        } else return ResponseEntity.status(403).build();
+    }
 
-        User userPatch = adminPanelService.getUserById(id);
-        if (userPatch == null || adminPanelService.updateUser(user, userPatch) == null) {
-            return ResponseEntity.status(404).build();
-        } return ResponseEntity.ok(userPatch);
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable int id, HttpServletRequest request) {
+        Role rola = tokenServiceClient.getRoleFromName(request);
+        if (rola != null && rola.equals(Role.administrator)) {
+            User user = adminPanelService.getUserById(id);
+            if (user != null) {
+                adminPanelService.deleteUser(user);
+                return ResponseEntity.noContent().build();
+            } else return ResponseEntity.status(404).build();
+        } else return ResponseEntity.status(403).build();
     }
 }
 
