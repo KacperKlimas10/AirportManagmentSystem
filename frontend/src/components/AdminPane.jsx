@@ -5,66 +5,79 @@ import PK from "../img/PK.png";
 function AdminPane() {
     const navigate = useNavigate();
     const [id, setId] = useState("");
-    const [username, setUsername] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [login, setUsername] = useState("");
+    const [name, setFirstName] = useState("");
+    const [surname, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
     const [error, setError] = useState("");
+    const [messageColor, setMessageColor] = useState("red");
 
     const handleAddUser = async () => {
         try {
-            const response = await fetch("http://localhost:8082/panel/admin/user", {
+            const response = await fetch(`http://localhost:8082/panel/admin/user`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ username, firstName, lastName, password, role })
+                body: JSON.stringify({ name, surname, login, password, role })
             });
             if (response.ok) {
                 setError("User added successfully");
+                setMessageColor("green");
             } else {
                 setError("Failed to add user");
+                setMessageColor("red");
             }
         } catch (error) {
             console.error("Error adding user:", error);
             setError("Error adding user");
+            setMessageColor("red");
         }
     };
 
     const handleDeleteUser = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/admin/user?id=${id}`, {
+            const response = await fetch(`http://localhost:8082/panel/admin/user/${id}`, {
                 method: "DELETE",
+                credentials: "include"
             });
             if (response.ok) {
                 setError("User deleted successfully");
+                setMessageColor("green");
             } else {
                 setError("Failed to delete user");
+                setMessageColor("red");
             }
         } catch (error) {
             console.error("Error deleting user:", error);
             setError("Error deleting user");
+            setMessageColor("red");
         }
     };
 
     const handleUpdateUser = async () => {
         try {
-            const response = await fetch("http://localhost:8082/panel/admin/user", {
+            const response = await fetch(`http://localhost:8082/panel/admin/user/${id}`, {
                 method: "PATCH",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ id, username, firstName, lastName, password, role })
+                body: JSON.stringify({ name, surname, login, password, role })
             });
             if (response.ok) {
                 setError("User updated successfully");
+                setMessageColor("green");
             } else {
                 setError("Failed to update user");
+                setMessageColor("red");
             }
         } catch (error) {
             console.error("Error updating user:", error);
             setError("Error updating user");
+            setMessageColor("red");
         }
     };
 
@@ -91,15 +104,15 @@ function AdminPane() {
                         </div>
                         <div className="form-list-item">
                             <h2>Username:</h2>
-                            <input type="text" placeholder="Input Username" className="input-box" value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <input type="text" placeholder="Input Username" className="input-box" value={login} onChange={(e) => setUsername(e.target.value)} />
                         </div>
                         <div className="form-list-item">
                             <h2>First Name:</h2>
-                            <input type="text" placeholder="Input First Name" className="input-box" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                            <input type="text" placeholder="Input First Name" className="input-box" value={name} onChange={(e) => setFirstName(e.target.value)} />
                         </div>
                         <div className="form-list-item">
                             <h2>Last Name:</h2>
-                            <input type="text" placeholder="Input Last Name" className="input-box" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                            <input type="text" placeholder="Input Last Name" className="input-box" value={surname} onChange={(e) => setLastName(e.target.value)} />
                         </div>
                         <div className="form-list-item">
                             <h2>Password:</h2>
@@ -115,7 +128,7 @@ function AdminPane() {
                         <button className="button-styled red" onClick={handleDeleteUser}>DELETE</button>
                         <button className="button-styled blue" onClick={handleUpdateUser}>UPDATE</button>
                     </div>
-                    {error && <p style={{color: "red"}}>{error}</p>}
+                    {error && <p style={{color: messageColor}}>{error}</p>}
                 </div>
             </div>
         </div>
