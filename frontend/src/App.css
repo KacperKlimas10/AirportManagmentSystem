@@ -342,7 +342,13 @@
 .form-wrapper {
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  width: 400px;
+  gap: 20px;
+}
+
+.form-wrapper-pilot {
+  display: flex;
+  flex-direction: column;
   width: 400px;
   gap: 20px;
 }
@@ -368,6 +374,38 @@
   justify-content: center;
 }
 
+.plane-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 50%;
+  align-items: center;
+  margin: 100px;
+}
+
+.plane-info-photo, .plane-info-list{
+  display: flex;
+  justify-content: center;
+}
+
+.plane-data {
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.plane-icon {
+    width: 300px;
+}
+
+.plane-wrapper {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 /* Responsive styles */
 @media screen and (max-width: 1200px) {
@@ -401,6 +439,11 @@
   .dashboard-button-icon {
     height: 75px;
     width: 75px;
+  }
+
+  .button-styled {
+    height: 40px;
+    width: 120px;
   }
 }
 
