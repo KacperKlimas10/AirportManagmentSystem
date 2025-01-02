@@ -236,6 +236,7 @@
   flex-direction: column;
   gap: 30px;
   align-items: center;
+  text-wrap: nowrap;
 }
 
 .staff-input-container {
@@ -265,7 +266,10 @@
     box-shadow: inset 0 0 15px #000000;
 }
 
-
+.form-wrapper p {
+  display: flex;
+  justify-content: center;
+}
 
 .staff-card {
   width: 100%;
@@ -338,8 +342,14 @@
 .form-wrapper {
   display: flex;
   flex-direction: column;
-  height: 40vh;
-  justify-content: center;
+  width: 400px;
+  gap: 20px;
+}
+
+.form-wrapper-pilot {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
   gap: 20px;
 }
 
@@ -362,6 +372,39 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.plane-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 50%;
+  align-items: center;
+  margin: 100px;
+}
+
+.plane-info-photo, .plane-info-list{
+  display: flex;
+  justify-content: center;
+}
+
+.plane-data {
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.plane-icon {
+    width: 300px;
+}
+
+.plane-wrapper {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Responsive styles */
@@ -396,6 +439,11 @@
   .dashboard-button-icon {
     height: 75px;
     width: 75px;
+  }
+
+  .button-styled {
+    height: 40px;
+    width: 120px;
   }
 }
 
