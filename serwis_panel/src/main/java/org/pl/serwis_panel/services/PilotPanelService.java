@@ -17,4 +17,8 @@ public class PilotPanelService {
     public List<Airplane> getPlanes() {
         return this.airplaneRepository.findAll();
     }
+
+    public Airplane getAirplaneById(int id) {
+        return this.airplaneRepository.findById(id).get();
+    }
 }
