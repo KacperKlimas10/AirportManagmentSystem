@@ -2,24 +2,23 @@ package org.pl.serwis_panel.services;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import org.pl.serwis_panel.config.WebClientConfig;
 import org.pl.serwis_panel.entities.User;
 import org.pl.serwis_panel.enums.Role;
 import org.pl.serwis_panel.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class TokenServiceClient {
 
-    @Value("${token.service.url}")
-    private String webClientUrl;
-
     String JWT_COOKIE_NAME = "jwtToken";
-    private final UserRepository userRepository;
 
-    public TokenServiceClient(UserRepository userRepository) {
+    private final UserRepository userRepository;
+    private final WebClientConfig webClientConfig;
+
+    public TokenServiceClient(UserRepository userRepository, WebClientConfig webClientConfig) {
         this.userRepository = userRepository;
+        this.webClientConfig = webClientConfig;
     }
 
     public String getUsernameFromExternalService(HttpServletRequest request) {
@@ -29,10 +28,9 @@ public class TokenServiceClient {
         for (Cookie cookie : request.getCookies()) {
             if (cookie.getName().equals(JWT_COOKIE_NAME)) {
                 try {
-                    return WebClient.builder()
-                            .build()
+                    return webClientConfig.webClientTokenServiceURL()
                             .get()
-                            .uri(webClientUrl)
+                            .uri("/auth/verifytoken")
                             .header("Authorization", "Bearer " + cookie.getValue())
                             .retrieve()
                             .bodyToMono(String.class)

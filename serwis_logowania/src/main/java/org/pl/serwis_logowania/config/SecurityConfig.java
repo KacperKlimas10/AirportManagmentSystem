@@ -18,7 +18,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("**")
+                        .requestMatchers("/**")
                         .permitAll()
                         .anyRequest().authenticated()
                 ).csrf(csrf -> csrf.disable())
