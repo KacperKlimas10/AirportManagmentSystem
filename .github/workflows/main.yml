@@ -24,7 +24,12 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-
+    
+    - name: Set permissions for Maven Wrapper
+      run: |
+        chmod +x ./serwis_logowania/mvnw
+        chmod +x ./serwis_panel/mvnw
+        
     - name: Build serwis_logowania with Maven Wrapper
       run: ./serwis_logowania/mvnw -f ./serwis_logowania/pom.xml clean install -DskipTests
 
