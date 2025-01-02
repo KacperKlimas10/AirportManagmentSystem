@@ -26,10 +26,11 @@ jobs:
           ${{ runner.os }}-maven-
 
     - name: Build serwis_logowania with Maven Wrapper
-      run: ./mvnw -f ./serwis_logowania/pom.xml clean install -DskipTests
+      run: ./serwis_logowania/mvnw -f ./serwis_logowania/pom.xml clean install -DskipTests
 
     - name: Build serwis_panel with Maven Wrapper
-      run: ./mvnw -f ./serwis_panel/pom.xml clean install -DskipTests
+      run: ./serwis_panel/mvnw -f ./serwis_panel/pom.xml clean install -DskipTests
+    
     - name: Set up Docker environment
       uses: docker/setup-buildx-action@v1
       
