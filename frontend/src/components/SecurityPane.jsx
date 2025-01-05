@@ -1,11 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PK from "../img/PK.png";
 
 function SecurityPane() {
     const navigate = useNavigate();
+    const [description, setDescription] = useState("");
+    const [reportDate, setreportDate] = useState("");
+    const [repairDate, setrepairDate] = useState("");
+    const [issueStatus, setissueStatus] = useState("");
+    const [error, setError] = useState("");
+    const [messageColor, setMessageColor] = useState("red");
 
-    // nav handlers
+    const handleReport = async () => {
+        try {
+            const response = await fetch(`http://localhost:8082/panel/security/report`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ description, reportDate, repairDate, issueStatus })
+            });
+            if (response.ok) {
+                setError("Report submitted successfully");
+                setMessageColor("green");
+            } else {
+                setError("Failed to submit report");
+                setMessageColor("red");
+            }
+        } catch (error) {
+            console.error("Error submitting report:", error);
+            setError("Error submitting report");
+            setMessageColor("red");
+        }
+    };
+
     return (
         <div className="main-container">
             <div className="page-header yellow">
@@ -25,29 +54,26 @@ function SecurityPane() {
                     <div className="form-wrapper">
                         <div className="form-list">
                             <div className="form-list-item">
-                                <h2>Gate Number:</h2>
-                                <input type="text" placeholder="Input Number" className="input-box"/>
-                            </div>
-                            <div className="form-list-item">
-                                <h2>Gate Outage ID:</h2>
-                                <input type="text" placeholder="Input ID" className="input-box"/>
+                                <h2>Description:</h2>
+                                <input type="text" placeholder="Description" className="input-box" value={description} onChange={(e) => setDescription(e.target.value)} />
                             </div>
                             <div className="form-list-item">
                                 <h2>Outage Date:</h2>
-                                <input type="text" placeholder="Input Date" className="input-box"/>
+                                <input type="text" placeholder="Outage Date" className="input-box" value={reportDate} onChange={(e) => setreportDate(e.target.value)} />
                             </div>
                             <div className="form-list-item">
-                                <h2>Gate Status:</h2>
-                                <input type="text" placeholder="Input Gate Status" className="input-box"/>
+                                <h2>Fix Date:</h2>
+                                <input type="text" placeholder="Fix Date" className="input-box" value={repairDate} onChange={(e) => setrepairDate(e.target.value)} />
                             </div>
                             <div className="form-list-item">
-                                <h2>Description:</h2>
-                                <input type="text" placeholder="Description" className="input-box"/>
+                                <h2>Outage Status:</h2>
+                                <input type="text" placeholder="Outage Status" className="input-box" value={issueStatus} onChange={(e) => setissueStatus(e.target.value)} />
                             </div>
                         </div>
                         <div className="single-centered-button">
-                            <button className="button-styled orange">REPORT</button>
+                            <button className="button-styled orange" onClick={handleReport}>REPORT</button>
                         </div>
+                        {error && <p style={{color: messageColor}}>{error}</p>}
                     </div>
                 </div>
             </div>
