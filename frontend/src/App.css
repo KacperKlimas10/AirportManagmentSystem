@@ -222,11 +222,11 @@
 }
 
 .headingInfo {
-    height: 20vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 20vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .staff-form {
@@ -247,23 +247,23 @@
 }
 
 .input-box {
-    height: 30px;
-    width: 200px;
-    border: 1px solid black;
-    border-radius: 5px;
-    font-family: Play, sans-serif;
-    font-size: 20px;
+  height: 30px;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-family: Play, sans-serif;
+  font-size: 20px;
 }
 
 .staff-button {
-    height: 50px;
-    width: 200px;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    font-size: 25px;
-    font-family: Play, sans-serif;
-    box-shadow: inset 0 0 15px #000000;
+  height: 50px;
+  width: 200px;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 25px;
+  font-family: Play, sans-serif;
+  box-shadow: inset 0 0 15px #000000;
 }
 
 .form-wrapper p {
@@ -299,12 +299,12 @@
 }
 
 .staff-card-info {
-    width: 60%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
+  width: 60%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }
 
 .user-icon {
@@ -365,7 +365,7 @@
 }
 
 .orange {
-    background-color: #FFA500;
+  background-color: #FFA500;
 }
 
 .single-centered-button {
@@ -374,30 +374,52 @@
   justify-content: center;
 }
 
-.plane-info {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  width: 50%;
+.errorText {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  margin: 100px;
 }
 
-.plane-info-photo, .plane-info-list{
+.plane-info {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  background-color: #f4f3f3;
+  border-radius: 20px;
+  box-shadow: 1px 1px 20px 1px #000000;
+  gap: 20px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.plane-info-list{
   display: flex;
   justify-content: center;
 }
 
+.plane-info-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  height: 200px;
+}
+
+
+.icon-wrapper {
+  width: 20%;
+  display: flex;
+  align-items: center;
+}
+
+
 .plane-data {
   height: 180px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-direction: column;
 }
 
-.plane-icon {
-    width: 300px;
-}
 
 .plane-wrapper {
   width: 100%;
@@ -405,6 +427,64 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.weather-data {
+  width: 100%;
+  height: 300px;
+}
+
+.weather-heading {
+  display: flex;
+  height: 100px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.276);
+}
+
+.weather-icon {
+  width: 75px;
+}
+
+.weather-heading-left {
+  display: inherit;
+  width: 50%;
+  align-items: center;
+}
+
+.weather-heading-left i {
+  width: 20%;
+  display: inherit;
+}
+
+.temperature {
+  font-size: 20px;
+}
+
+.weather-heading-right {
+  width: 50%;
+  display: inherit;
+  align-items: center;
+}
+
+.icon-styling {
+  font-size: 40px;
+}
+
+.weather-description {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 20px;
+  justify-content: center;
+}
+
+.weather-grid-item {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Responsive styles */
@@ -479,5 +559,58 @@
   .pklogo-header {
     height: 50px;
     width: 50px;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .icon-styling {
+    font-size: 30px;
+  }
+
+  .weather-description {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .weather-grid {
+    gap: 10px;
+  }
+
+  .weather-grid-item {
+    font-size: 10px;
+  }
+
+  .temperature {
+    font-size: 16px;
+  }
+
+
+  .plane-info-list li {
+    font-size: 14px;
+  }
+
+  .plane-info-photo img {
+    width: 80%;
+  }
+
+  .weather-data {
+    height: 150px;
+  }
+
+  .plane-info-container {
+    height: 200px;
+  }
+
+  .weather-heading {
+    height: 50px;
+  }
+
+  .plane-info {
+    gap: 5px;
+    margin: 10px;
+  }
+
+  .plane-data-p {
+    font-size: 10px;
   }
 }
