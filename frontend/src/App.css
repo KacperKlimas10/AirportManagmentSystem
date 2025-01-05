@@ -222,7 +222,7 @@
 }
 
 .headingInfo {
-  height: 20vh;
+  height: 10vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -388,7 +388,7 @@
   background-color: #f4f3f3;
   border-radius: 20px;
   box-shadow: 1px 1px 20px 1px #000000;
-  gap: 20px;
+  gap: 40px;
   margin: 20px;
   padding: 20px;
 }
