@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthProvider";
 import PK from "../img/PK.png";
 import staffIcon from "../img/persons-in-an-airport.png";
 import pilotIcon from "../img/pilot-of-airplane.png";
@@ -10,6 +11,7 @@ function Dashboard() {
     const [name, setName] = useState();
     const [role, setRole] = useState();
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     useEffect(() => {
         const fetchName = async () => {
@@ -67,12 +69,11 @@ function Dashboard() {
                     <img src={PK} alt="PK logo" className="pklogo-header"/>
                 </div>
                 <div className="page-header-button">
-                    <button className="header-button" onClick={() => navigate("/login")}>
-                    </button>
+                    <button className="header-button" onClick={logout}></button>
                 </div>
             </div>
             <div className="dashboard-message">
-                <p>Welcome to airport management system PK, {name}</p>
+                <p>Welcome to airport management system PK {name}</p>
             </div>
             <div className="dashboard-buttons">
                 {(role === "administrator" || role === "obsługa_techniczna") && (

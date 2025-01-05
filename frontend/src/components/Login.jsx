@@ -19,12 +19,6 @@ function Login() {
             });
 
             if (response.ok) {
-                const cookies = document.cookie.split("; ");
-                const authTokenCookie = cookies.find(cookie => cookie.startsWith("authToken="));
-                if (authTokenCookie) {
-                    const token = authTokenCookie.split("=")[1];
-                    localStorage.setItem("authToken", token); // Save JWT (json web token)
-                }
                 authenticate(); // Set isAuthenticated to true
                 navigate("/dashboard");
             } else {

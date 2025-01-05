@@ -32,6 +32,9 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private FlightStatus flightStatus;
 
+    @Column(name = "Miejsce_docelowe", nullable = false)
+    private String destination;
+
     @ManyToMany
     @JoinTable(
             name = "Lot_Samolot",

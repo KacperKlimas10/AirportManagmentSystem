@@ -214,14 +214,14 @@
   margin: 10px;
 }
 
-.staff-container {
+.container-middle {
   height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.staff-heading {
+.headingInfo {
     height: 20vh;
     width: 100%;
     display: flex;
@@ -236,6 +236,7 @@
   flex-direction: column;
   gap: 30px;
   align-items: center;
+  text-wrap: nowrap;
 }
 
 .staff-input-container {
@@ -245,7 +246,7 @@
   gap: 10px;
 }
 
-.staff-input {
+.input-box {
     height: 30px;
     width: 200px;
     border: 1px solid black;
@@ -265,7 +266,10 @@
     box-shadow: inset 0 0 15px #000000;
 }
 
-
+.form-wrapper p {
+  display: flex;
+  justify-content: center;
+}
 
 .staff-card {
   width: 100%;
@@ -314,7 +318,7 @@
   gap: 10px;
 }
 
-.staff-card-button {
+.button-styled {
   height: 50px;
   width: 200px;
   color: white;
@@ -323,6 +327,84 @@
   font-size: 25px;
   font-family: Play, sans-serif;
   box-shadow: inset 0 0 15px #000000;
+}
+
+.form-list-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  gap: 20px;
+}
+
+.form-wrapper-pilot {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  gap: 20px;
+}
+
+.form-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.orange {
+    background-color: #FFA500;
+}
+
+.single-centered-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.plane-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 50%;
+  align-items: center;
+  margin: 100px;
+}
+
+.plane-info-photo, .plane-info-list{
+  display: flex;
+  justify-content: center;
+}
+
+.plane-data {
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.plane-icon {
+    width: 300px;
+}
+
+.plane-wrapper {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Responsive styles */
@@ -357,6 +439,11 @@
   .dashboard-button-icon {
     height: 75px;
     width: 75px;
+  }
+
+  .button-styled {
+    height: 40px;
+    width: 120px;
   }
 }
 

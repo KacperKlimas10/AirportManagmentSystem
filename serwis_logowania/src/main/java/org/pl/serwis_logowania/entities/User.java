@@ -1,16 +1,33 @@
 package org.pl.serwis_logowania.entities;
 
-import lombok.*;
-import java.util.List;
+import jakarta.persistence.*;
+import lombok.Data;
+import org.pl.serwis_logowania.enums.Role;
 
-@RequiredArgsConstructor
-@Getter
-@Setter
+@Data
+@Entity
+@Table(name = "`Użytkownik`", schema = "lotnisko_baza", uniqueConstraints = {
+        @UniqueConstraint(name = "Login", columnNames = {"Login"})
+})
 public class User {
-    Long ID_Użytkownika;
-    String Imię;
-    String Nazwisko;
-    String Login;
-    String Hasło;
-    Role Rola;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "`ID_Użytkownika`", nullable = false)
+    private Integer id;
+
+    @Column(name = "`Imię`", length = 50)
+    private String name;
+
+    @Column(name = "Nazwisko", length = 50)
+    private String surname;
+
+    @Column(name = "Login", nullable = false, length = 50)
+    private String login;
+
+    @Column(name = "`Hasło`", nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Rola")
+    private Role role;
 }

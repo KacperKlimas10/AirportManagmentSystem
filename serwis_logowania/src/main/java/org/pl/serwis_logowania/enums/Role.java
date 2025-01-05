@@ -1,4 +1,4 @@
-package org.pl.serwis_logowania.entities;
+package org.pl.serwis_logowania.enums;
 
 public enum Role {
     administrator,
