@@ -24,7 +24,6 @@ public class PilotPanelController {
         this.tokenServiceClient = tokenServiceClient;
     }
 
-    // Po ID samolotu
     @GetMapping("/plane")
     public ResponseEntity<List<Airplane>> ListPlanes(HttpServletRequest request) {
         Role rola = this.tokenServiceClient.getRoleFromName(request);
@@ -49,11 +48,9 @@ public class PilotPanelController {
             Airplane plane = this.pilotPanelService.getAirplaneById(id);
             if (plane != null) {
                 return ResponseEntity.ok(plane);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
+            } else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @GetMapping("/flight/{id}")
