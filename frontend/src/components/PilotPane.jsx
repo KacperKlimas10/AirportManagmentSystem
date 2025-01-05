@@ -87,8 +87,8 @@ function PilotPane() {
                     <div className="form-wrapper-pilot">
                         <div className="form-list">
                             <div className="form-list-item">
-                                <h2>Flight ID:</h2>
-                                <input type="text" placeholder="Input Flight ID" className="input-box" value={planeId} onChange={(e) => setPlaneId(e.target.value)} />
+                                <h2>Plane ID:</h2>
+                                <input type="text" placeholder="Input Plane ID" className="input-box" value={planeId} onChange={(e) => setPlaneId(e.target.value)} />
                             </div>
                         </div>
                         <div className="single-centered-button">
