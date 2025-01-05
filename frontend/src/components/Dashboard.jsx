@@ -84,7 +84,7 @@ function Dashboard() {
                         </button>
                     </div>
                 )}
-                {(role === "administrator" || role === "kontrola_lotów") && (
+                {(role === "administrator" || role === "pilot") && (
                     <div className="dashboard-button-container">
                         <h2 className="button-heading">Pilot</h2>
                         <button className="dashboard-button blue" onClick={() => handleNavigation("pilot")}>
@@ -92,7 +92,7 @@ function Dashboard() {
                         </button>
                     </div>
                 )}
-                {(role === "administrator" || role === "security") && (
+                {(role === "administrator" || role === "ochrona") && (
                     <div className="dashboard-button-container">
                         <h2 className="button-heading">Security</h2>
                         <button className="dashboard-button yellow" onClick={() => handleNavigation("security")}>

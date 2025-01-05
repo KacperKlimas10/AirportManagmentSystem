@@ -4,12 +4,12 @@ import PK from "../img/PK.png";
 
 function AdminPane() {
     const navigate = useNavigate();
-    const [id, setId] = useState("");
-    const [login, setUsername] = useState("");
-    const [name, setFirstName] = useState("");
-    const [surname, setLastName] = useState("");
-    const [password, setPassword] = useState("");
-    const [role, setRole] = useState("");
+    const [id, setId] = useState(null);
+    const [login, setUsername] = useState(null);
+    const [name, setFirstName] = useState(null);
+    const [surname, setLastName] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [role, setRole] = useState(null);
     const [error, setError] = useState("");
     const [messageColor, setMessageColor] = useState("red");
 
@@ -58,6 +58,7 @@ function AdminPane() {
     };
 
     const handleUpdateUser = async () => {
+
         try {
             const response = await fetch(`http://localhost:8082/panel/admin/user/${id}`, {
                 method: "PATCH",
