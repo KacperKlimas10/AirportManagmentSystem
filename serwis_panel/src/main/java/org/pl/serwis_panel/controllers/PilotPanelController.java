@@ -1,16 +1,15 @@
 package org.pl.serwis_panel.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.pl.serwis_panel.dto.FlightDTO;
+import org.pl.serwis_panel.dto.openweather.api.OpenWeatherDTO;
 import org.pl.serwis_panel.entities.Airplane;
 import org.pl.serwis_panel.enums.Role;
 import org.pl.serwis_panel.services.PilotPanelService;
 import org.pl.serwis_panel.services.TokenServiceClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,5 +54,32 @@ public class PilotPanelController {
             }
         }
         return null;
+    }
+
+    @GetMapping("/flight/{id}")
+    public ResponseEntity<FlightDTO> getFlight(@PathVariable int id, HttpServletRequest request)
+    {
+        Role rola = this.tokenServiceClient.getRoleFromName(request);
+        if (rola == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (rola == Role.pilot || rola == Role.administrator) {
+            FlightDTO flight = this.pilotPanelService.getFlightById(id);
+            if (flight != null) {
+                return ResponseEntity.ok(flight);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
+
+    @GetMapping("/weather")
+    public ResponseEntity<OpenWeatherDTO> getWeather(@RequestParam String city, HttpServletRequest request)
+    {
+        Role rola = this.tokenServiceClient.getRoleFromName(request);
+        if (rola == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (rola == Role.pilot || rola == Role.administrator) {
+            return ResponseEntity.ok(pilotPanelService.getWeather(city));
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }
