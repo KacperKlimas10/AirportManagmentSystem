@@ -2,17 +2,20 @@ package org.pl.serwis_panel.services;
 
 import lombok.RequiredArgsConstructor;
 import org.pl.serwis_panel.config.WebClientConfig;
+import org.pl.serwis_panel.dto.AirplaneDTO;
 import org.pl.serwis_panel.dto.FlightDTO;
 import org.pl.serwis_panel.dto.openweather.api.OpenWeatherDTO;
 import org.pl.serwis_panel.entities.Airplane;
 import org.pl.serwis_panel.entities.Flight;
+import org.pl.serwis_panel.mappers.AirPlaneMapper;
 import org.pl.serwis_panel.mappers.FlightAirplaneMapper;
 import org.pl.serwis_panel.repositories.AirplaneRepository;
 import org.pl.serwis_panel.repositories.FlightRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -23,9 +26,9 @@ public class PilotPanelService {
     private final WebClientConfig webClientConfig;
     private final String openWeatherAPI = "44c41402e2eefed67400042c0e546e7f";
 
-    public List<Airplane> getPlanes() {
-        return this.airplaneRepository.findAll();
-    }
+    public List<Airplane> getPlanes() {return this.airplaneRepository.findAll();}
+
+    public List<AirplaneDTO> getPlanesWithFlights() {return AirPlaneMapper.toDtoList(this.airplaneRepository.findAllWithFlights());}
 
     public Airplane getAirplaneById(int id) {return this.airplaneRepository.findById(id);}
 

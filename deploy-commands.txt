@@ -1,0 +1,6 @@
+minikube start
+kubectl apply -f serwis_logowania-k8s.yaml
+kubectl apply -f serwis_panel-k8s.yaml
+
+kubectl port-forward service/serwis-logowania 8081:8081
+kubectl port-forward service/serwis-panel 8082:8082
