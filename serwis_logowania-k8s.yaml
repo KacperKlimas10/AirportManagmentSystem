@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: serwis-logowania
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: serwis-logowania
@@ -19,7 +19,8 @@ spec:
           - name: SERVER_PORT
             value: "8081"
           - name: SPRING_DATASOURCE_URL
-            value: "jdbc:mysql://192.168.8.254:3306/lotnisko_baza"
+#            value: "jdbc:mysql://172.20.10.5:3306/lotnisko_baza"
+            value: "jdbc:mysql://192.168.1.15:3306/lotnisko_baza"
           - name: SPRING_DATASOURCE_USERNAME
             value: "root"
           - name: SPRING_DATASOURCE_PASSWORD

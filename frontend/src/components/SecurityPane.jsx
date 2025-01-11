@@ -7,7 +7,7 @@ function SecurityPane() {
     const [description, setDescription] = useState("");
     const [reportDate, setreportDate] = useState("");
     const [repairDate, setrepairDate] = useState("");
-    const [issueStatus, setissueStatus] = useState("");
+    const [issueStatus, setissueStatus] = useState("zgłoszona");
     const [error, setError] = useState("");
     const [messageColor, setMessageColor] = useState("red");
 
@@ -42,7 +42,7 @@ function SecurityPane() {
                     <img src={PK} alt="PK logo" className="pklogo-header"/>
                 </div>
                 <div className="page-header-button">
-                    <button className="header-button" onClick={() => navigate("/dashboard")}>
+                    <button className="header-button header-button-back" onClick={() => navigate("/dashboard")}>
                     </button>
                 </div>
             </div>
@@ -67,7 +67,11 @@ function SecurityPane() {
                             </div>
                             <div className="form-list-item">
                                 <h2>Outage Status:</h2>
-                                <input type="text" placeholder="Outage Status" className="input-box" value={issueStatus} onChange={(e) => setissueStatus(e.target.value)} />
+                                <select className="input-box" value={issueStatus} onChange={(e) => setissueStatus(e.target.value)}>
+                                    <option value="zgłoszona">zgłoszona</option>
+                                    <option value="w_trakcie_naprawy">w trakcie naprawy</option>
+                                    <option value="naprawiona">naprawiona</option>
+                                </select>
                             </div>
                         </div>
                         <div className="single-centered-button">

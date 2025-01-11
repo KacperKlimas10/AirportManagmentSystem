@@ -1,6 +1,7 @@
 package org.pl.serwis_panel.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.pl.serwis_panel.dto.AirplaneDTO;
 import org.pl.serwis_panel.dto.FlightDTO;
 import org.pl.serwis_panel.dto.openweather.api.OpenWeatherDTO;
 import org.pl.serwis_panel.entities.Airplane;
@@ -25,11 +26,11 @@ public class PilotPanelController {
     }
 
     @GetMapping("/plane")
-    public ResponseEntity<List<Airplane>> ListPlanes(HttpServletRequest request) {
+    public ResponseEntity<List<AirplaneDTO>> ListPlanes(HttpServletRequest request) {
         Role rola = this.tokenServiceClient.getRoleFromName(request);
         if (rola == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if (rola == Role.pilot || rola == Role.administrator) {
-            List<Airplane> planes = this.pilotPanelService.getPlanes();
+            List<AirplaneDTO> planes = this.pilotPanelService.getPlanesWithFlights();
             if (planes == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             } else {

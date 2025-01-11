@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PK from "../img/PK.png";
 
@@ -12,6 +12,31 @@ function AdminPane() {
     const [role, setRole] = useState(null);
     const [error, setError] = useState("");
     const [messageColor, setMessageColor] = useState("red");
+    const [users, setUsers] = useState([]);
+
+    const fetchUsers = async () => {
+        try {
+            const response = await fetch(`http://localhost:8082/panel/admin/user`, {
+                method: "GET",
+                credentials: "include"
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setUsers(data);
+            } else {
+                setError("Failed to fetch users");
+                setMessageColor("red");
+            }
+        } catch (error) {
+            console.error("Error fetching users:", error);
+            setError("Error fetching users");
+            setMessageColor("red");
+        }
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
 
     const handleAddUser = async () => {
         try {
@@ -26,6 +51,7 @@ function AdminPane() {
             if (response.ok) {
                 setError("User added successfully");
                 setMessageColor("green");
+                fetchUsers();
             } else {
                 setError("Failed to add user");
                 setMessageColor("red");
@@ -46,6 +72,7 @@ function AdminPane() {
             if (response.ok) {
                 setError("User deleted successfully");
                 setMessageColor("green");
+                fetchUsers();
             } else {
                 setError("Failed to delete user");
                 setMessageColor("red");
@@ -58,7 +85,6 @@ function AdminPane() {
     };
 
     const handleUpdateUser = async () => {
-
         try {
             const response = await fetch(`http://localhost:8082/panel/admin/user/${id}`, {
                 method: "PATCH",
@@ -71,6 +97,7 @@ function AdminPane() {
             if (response.ok) {
                 setError("User updated successfully");
                 setMessageColor("green");
+                fetchUsers();
             } else {
                 setError("Failed to update user");
                 setMessageColor("red");
@@ -89,7 +116,7 @@ function AdminPane() {
                     <img src={PK} alt="PK logo" className="pklogo-header"/>
                 </div>
                 <div className="page-header-button">
-                    <button className="header-button" onClick={() => navigate("/dashboard")}>
+                    <button className="header-button header-button-back" onClick={() => navigate("/dashboard")}>
                     </button>
                 </div>
             </div>
@@ -101,7 +128,12 @@ function AdminPane() {
                     <div className="form-list">
                         <div className="form-list-item">
                             <h2>ID:</h2>
-                            <input type="text" placeholder="Input ID" className="input-box" value={id} onChange={(e) => setId(e.target.value)} />
+                            <select className="input-box" value={id} onChange={(e) => setId(e.target.value)}>
+                                <option value="">Select User</option>
+                                {users.map(user => (
+                                    <option key={user.id} value={user.id}>{user.id} - {user.name} {user.surname}</option>
+                                ))}
+                            </select>
                         </div>
                         <div className="form-list-item">
                             <h2>Username:</h2>
@@ -121,7 +153,14 @@ function AdminPane() {
                         </div>
                         <div className="form-list-item">
                             <h2>Role:</h2>
-                            <input type="text" placeholder="Input Role" className="input-box" value={role} onChange={(e) => setRole(e.target.value)} />
+                            <select className="input-box" value={role} onChange={(e) => setRole(e.target.value)}>
+                                <option value="">Select Role</option>
+                                <option value="administrator">administrator</option>
+                                <option value="obsługa_techniczna">obsługa techniczna</option>
+                                <option value="kontrola_lotów">kontrola lotów</option>
+                                <option value="ochrona">ochrona</option>
+                                <option value="pilot">pilot</option>
+                            </select>
                         </div>
                     </div>
                     <div className="admin-buttons">

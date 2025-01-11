@@ -1,14 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PK from "../img/PK.png";
-import planeIcon from "../img/images.png";
 
 function PilotPane() {
     const navigate = useNavigate();
-    const [planeId, setPlaneId] = useState("");
+    const [planeId, setPlaneId] = useState(null);
     const [planeDetails, setPlaneDetails] = useState(null);
     const [weatherInfo, setWeatherInfo] = useState(null);
     const [error, setError] = useState("");
+    const [planes, setPlanes] = useState([]);
+
+    useEffect(() => {
+        const fetchPlanes = async () => {
+            try {
+                const response = await fetch("http://localhost:8082/panel/pilot/plane", {
+                    method: "GET",
+                    credentials: "include"
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setPlanes(data);
+                } else {
+                    console.error("Failed to fetch planes");
+                }
+            } catch (error) {
+                console.error("Error fetching planes:", error);
+            }
+        };
+
+        fetchPlanes();
+    }, []);
 
     const handleFetchPlaneDetails = async () => {
         try {
@@ -53,19 +74,19 @@ function PilotPane() {
     };
 
     const formatDate = (timestamp) => {
-        const date = new Date(timestamp); // Convert milliseconds to date
+        const date = new Date(timestamp);
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${day}.${month}.${year}`; // Format the date as YYYY.MM.DD
+        return `${day}.${month}.${year}`;
     };
 
     const formatTime = (timestamp) => {
-        const date = new Date(timestamp); // Convert milliseconds to date
+        const date = new Date(timestamp);
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
         const seconds = String(date.getSeconds()).padStart(2, '0');
-        return `${hours}:${minutes}:${seconds}`; // Format the time as HH:MM:SS
+        return `${hours}:${minutes}:${seconds}`;
     };
 
     return (
@@ -75,7 +96,7 @@ function PilotPane() {
                     <img src={PK} alt="PK logo" className="pklogo-header"/>
                 </div>
                 <div className="page-header-button">
-                    <button className="header-button" onClick={() => navigate("/dashboard")}>
+                    <button className="header-button header-button-back" onClick={() => navigate("/dashboard")}>
                     </button>
                 </div>
             </div>
@@ -87,8 +108,13 @@ function PilotPane() {
                     <div className="form-wrapper-pilot">
                         <div className="form-list">
                             <div className="form-list-item">
-                                <h2>Plane ID:</h2>
-                                <input type="text" placeholder="Input Plane ID" className="input-box" value={planeId} onChange={(e) => setPlaneId(e.target.value)} />
+                                <h2>Plane:</h2>
+                                <select className="input-box" value={planeId} onChange={(e) => setPlaneId(e.target.value)}>
+                                    <option value="">Select a plane</option>
+                                    {planes.map(plane => (
+                                        <option key={plane.id} value={plane.id}>{plane.model} - ({plane.registration})</option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
                         <div className="single-centered-button">
