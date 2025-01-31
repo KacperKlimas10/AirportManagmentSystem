@@ -13,9 +13,7 @@ import org.pl.serwis_panel.repositories.AirplaneRepository;
 import org.pl.serwis_panel.repositories.FlightRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-
 
 @Service
 @RequiredArgsConstructor
