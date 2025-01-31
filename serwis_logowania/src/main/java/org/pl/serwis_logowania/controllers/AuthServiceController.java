@@ -2,6 +2,7 @@ package org.pl.serwis_logowania.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.pl.serwis_logowania.dto.UserDTO;
 import org.pl.serwis_logowania.services.AuthService;
 import org.springframework.http.*;
@@ -9,13 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthServiceController {
 
     private final AuthService authService;
-
-    public AuthServiceController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @GetMapping
     public ResponseEntity<String> getNameFromJWT(HttpServletRequest request) {
@@ -38,7 +36,7 @@ public class AuthServiceController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDTO user, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody UserDTO user, HttpServletResponse response) throws NullPointerException {
         ResponseCookie responseCookie = authService.login(user);
         if (responseCookie != null) {
             response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
