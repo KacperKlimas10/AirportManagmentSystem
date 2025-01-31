@@ -2,7 +2,7 @@ name: lotnisko_projekt CI/CD
 on:
   push:
     branches:
-    - working_version
+    - master
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
