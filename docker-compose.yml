@@ -1,5 +1,4 @@
-version: '3.8'
-
+name: lotnisko_projekt
 services:
   serwis_logowania:
     image: kacperklimas10/serwis_logowania:latest
@@ -46,7 +45,7 @@ services:
     networks:
       my-network:
     ports:
-      - "3000:3000"
+      - "81:80"
 
   phpmyadmin:
     container_name: phpmyadmin
@@ -62,8 +61,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "haslo"
       MYSQL_DATABASE: "lotnisko_baza"
-    ports:
-      - "3306:3306"
     networks:
       - my-network
     volumes:

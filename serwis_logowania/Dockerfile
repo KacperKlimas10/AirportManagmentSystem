@@ -1,8 +1,16 @@
+FROM maven AS builder
+
+WORKDIR /build
+
+COPY . .
+
+RUN mvn clean package -DskipTests
+
 FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY ./target/*.jar app.jar
+COPY --from=builder /build/target/*.jar app.jar
 
 EXPOSE 8081
 
