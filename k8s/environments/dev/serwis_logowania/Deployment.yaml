@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serwis-logowania
+  namespace: serwis-logowania
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: serwis-logowania
+  template:
+    metadata:
+      labels:
+        app: serwis-logowania
+    spec:
+      containers:
+      - name: serwis-logowania
+        image: kacperklimas10/serwis_logowania:latest
+        imagePullPolicy: Always
+        env:
+          - name: SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: serwis-logowania-configmap
+                key: SERVER_PORT
+          - name: SPRING_DATASOURCE_URL
+            valueFrom:
+              secretKeyRef:
+                name: serwis-logowania-secret
+                key: SPRING_DATASOURCE_URL
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: serwis-logowania-secret
+                key: SPRING_DATASOURCE_USERNAME
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: serwis-logowania-secret
+                key: SPRING_DATASOURCE_PASSWORD
+          - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+            valueFrom:
+              configMapKeyRef:
+                name: serwis-logowania-configmap
+                key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        ports:
+        - containerPort: 8081
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false

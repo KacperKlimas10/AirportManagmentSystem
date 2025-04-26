@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: serwis-frontend-ingress
+  namespace: serwis-frontend
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: serwis-frontend
+                port:
+                  number: 80
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: serwis-logowania-api
+                port:
+                  number: 8081
+          - path: /panel
+            pathType: Prefix
+            backend:
+              service:
+                name: serwis-panel-api
+                port:
+                  number: 8082
+          - path: /phpmyadmin
+            pathType: Prefix
+            backend:
+              service:
+                name: serwis-db-api
+                port:
+                  number: 80
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-config
+  namespace: ingress-nginx
+data:
+  proxy-pass-headers: "Host $host"
+  proxy_set_header: "Cookie $http_cookie"
+  proxy_pass_request_headers: "on"

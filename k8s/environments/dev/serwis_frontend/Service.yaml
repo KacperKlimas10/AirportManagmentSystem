@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: serwis-frontend
+  namespace: serwis-frontend
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: serwis-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: serwis-logowania-api
+  namespace: serwis-frontend
+spec:
+  type: ExternalName
+  externalName: serwis-logowania.serwis-logowania.svc.cluster.local
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: serwis-panel-api
+  namespace: serwis-frontend
+spec:
+  type: ExternalName
+  externalName: serwis-panel.serwis-panel.svc.cluster.local
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: serwis-db-api
+  namespace: serwis-frontend
+spec:
+  type: ExternalName
+  externalName: serwis-db.serwis-db.svc.cluster.local

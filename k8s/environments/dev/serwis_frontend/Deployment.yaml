@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serwis-frontend
+  namespace: serwis-frontend
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: serwis-frontend
+  template:
+    metadata:
+      labels:
+        app: serwis-frontend
+    spec:
+      containers:
+        - name: serwis-frontend
+          image: kacperklimas10/serwis_frontend:k8s
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: db
+  namespace: serwis-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: db
+        tier: mysql
+    spec:
+      containers:
+      - image: mysql:latest
+        name: mysql
+        ports:
+          - containerPort: 3306
+            name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: MYSQL_DATABASE
+        volumeMounts:
+          - name: db-volume
+            mountPath: /var/lib/mysql
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+      - image: phpmyadmin/phpmyadmin:latest
+        name: phpmyadmin
+        ports:
+        - containerPort: 80
+          name: phpmyadmin
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+      volumes:
+      - name: db-volume
+        persistentVolumeClaim:
+          claimName: db-pvc
