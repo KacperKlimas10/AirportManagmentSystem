@@ -1,10 +1,10 @@
 name: lotnisko_projekt
 services:
-  serwis_logowania:
-    image: kacperklimas10/serwis_logowania:latest
+  serwis-logowania:
+    container_name: serwis_logowania
+    image: kacperklimas10/serwis_logowania:dev
     build:
       context: ./serwis_logowania
-      dockerfile: Dockerfile
     environment:
       SERVER_PORT: 8081
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
@@ -12,48 +12,47 @@ services:
       SPRING_DATASOURCE_PASSWORD: haslo
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
     networks:
-      my-network:
-      backend:
-        ipv4_address: 172.19.0.2
+      - my-network
+      - backend
     ports:
       - "8081:8081"
 
-  serwis_panel:
-    image: kacperklimas10/serwis_panel:latest
+  serwis-panel:
+    container_name: serwis_panel
+    image: kacperklimas10/serwis_panel:dev
     build:
       context: ./serwis_panel
-      dockerfile: Dockerfile
     environment:
       SERVER_PORT: 8082
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: haslo
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
-      TOKEN_SERVICE_URL: http://172.19.0.2:8081
+      TOKEN_SERVICE_URL: http://serwis-logowania:8081
     networks:
-      my-network:
-      backend:
-        ipv4_address: 172.19.0.3
+      - my-network
+      - backend
     ports:
       - "8082:8082"
 
-  serwis_frontend:
-    image: kacperklimas10/serwis_frontend:latest
+  serwis-frontend:
+    container_name: serwis_frontend
+    image: kacperklimas10/serwis_frontend:dev
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     networks:
-      my-network:
+      - my-network
     ports:
       - "81:80"
 
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
-    ports:
-      - "6969:80"
     networks:
       - my-network
+      - backend
+    ports:
+      - "6969:80"
 
   db:
     container_name: mysql
@@ -62,17 +61,12 @@ services:
       MYSQL_ROOT_PASSWORD: "haslo"
       MYSQL_DATABASE: "lotnisko_baza"
     networks:
-      - my-network
+      - backend
     volumes:
       - db-vol:/var/lib/mysql
 
 networks:
   my-network:
-    driver: bridge
   backend:
-    internal: true
-    ipam:
-      config:
-        - subnet: 172.19.0.0/16
 volumes:
   db-vol:

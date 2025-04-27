@@ -13,4 +13,3 @@ output "public_subnet_ipv4_cidr_blocks" {
 output "private_subnet_ipv4_cidr_blocks" {
   value = module.vpc.private_subnets_cidr_blocks
 }
-

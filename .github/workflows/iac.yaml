@@ -1,0 +1,8 @@
+name: lotnisko_projekt IaC CI/CD
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+# To be continued...

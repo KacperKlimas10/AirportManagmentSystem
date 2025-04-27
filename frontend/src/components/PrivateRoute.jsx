@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthProvider';
+import React, {useEffect} from 'react';
+import {Navigate} from 'react-router-dom';
+import {useAuth} from './AuthProvider';
 
 const PrivateRoute = ({ element: Component }) => {
     const { isAuthenticated, refreshToken } = useAuth();

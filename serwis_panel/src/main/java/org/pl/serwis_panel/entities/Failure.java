@@ -1,8 +1,11 @@
 package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.pl.serwis_panel.enums.FailureStatus;
+
 import java.util.Date;
 
 @Getter

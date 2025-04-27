@@ -3,7 +3,7 @@ package org.pl.serwis_panel.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authorization.AuthorizationDeniedException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import javax.security.sasl.AuthenticationException;
 
