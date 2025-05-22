@@ -1,10 +1,14 @@
 package org.pl.serwis_logowania.utils;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import org.pl.serwis_logowania.enums.Role;
 import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKey;
-import java.util.*;
+import java.util.Date;
+import java.util.Objects;
 
 @Component
 public class JwtUtils {

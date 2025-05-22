@@ -1,7 +1,7 @@
 package org.pl.serwis_panel.entities;
 
-import lombok.Data;
 import jakarta.persistence.*;
+import lombok.Data;
 import org.pl.serwis_panel.enums.TransportType;
 
 import java.util.Date;

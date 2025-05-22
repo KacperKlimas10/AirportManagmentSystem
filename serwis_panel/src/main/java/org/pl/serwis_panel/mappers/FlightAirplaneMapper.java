@@ -4,6 +4,7 @@ import org.pl.serwis_panel.dto.AirplaneDTO;
 import org.pl.serwis_panel.dto.FlightDTO;
 import org.pl.serwis_panel.entities.Airplane;
 import org.pl.serwis_panel.entities.Flight;
+
 import java.util.stream.Collectors;
 
 public class FlightAirplaneMapper {

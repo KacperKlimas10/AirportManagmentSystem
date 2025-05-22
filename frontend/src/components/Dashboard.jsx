@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthProvider";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "./AuthProvider";
 import PK from "../img/PK.png";
 import staffIcon from "../img/persons-in-an-airport.png";
 import pilotIcon from "../img/pilot-of-airplane.png";
 import securityIcon from "../img/traveler-at-the-airport.png";
 import adminIcon from "../img/airport-worker.png";
+
+const LOGIN_SERVICE = process.env.REACT_APP_LOGIN_SERVICE;
+const PANEL_SERVICE = process.env.REACT_APP_PANEL_SERVICE;
 
 function Dashboard() {
     const [name, setName] = useState();
@@ -16,7 +19,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchName = async () => {
             try {
-                const response = await fetch("http://localhost:8081/auth", {
+                const response = await fetch(`${process.env.REACT_APP_LOGIN_SERVICE                  }/auth`, {
                     method: "GET",
                     credentials: "include",
                 });
@@ -37,7 +40,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchRole = async () => {
             try {
-                const response = await fetch("http://localhost:8082/panel/admin", {
+                const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/admin`, {
                     method: "GET",
                     credentials: "include",
                 });

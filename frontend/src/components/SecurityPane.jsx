@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import PK from "../img/PK.png";
+
+const PANEL_SERVICE = process.env.REACT_APP_PANEL_SERVICE;
 
 function SecurityPane() {
     const navigate = useNavigate();
@@ -13,7 +15,7 @@ function SecurityPane() {
 
     const handleReport = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/security/report`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/security/report`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

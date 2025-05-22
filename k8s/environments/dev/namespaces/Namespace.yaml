@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: serwis-db
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: serwis-frontend
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: serwis-logowania
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: serwis-panel

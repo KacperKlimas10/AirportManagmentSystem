@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import PK from "../img/PK.png";
+
+const PANEL_SERVICE = process.env.REACT_APP_PANEL_SERVICE;
 
 function PilotPane() {
     const navigate = useNavigate();
@@ -13,7 +15,7 @@ function PilotPane() {
     useEffect(() => {
         const fetchPlanes = async () => {
             try {
-                const response = await fetch("http://localhost:8082/panel/pilot/plane", {
+                const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/pilot/plane`, {
                     method: "GET",
                     credentials: "include"
                 });
@@ -33,7 +35,7 @@ function PilotPane() {
 
     const handleFetchPlaneDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/pilot/plane/${planeId}`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/pilot/plane/${planeId}`, {
                 method: "GET",
                 credentials: "include"
             });
@@ -57,7 +59,7 @@ function PilotPane() {
 
     const fetchWeatherInfo = async (city) => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/pilot/weather?city=${city}`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/pilot/weather?city=${city}`, {
                 method: "GET",
                 credentials: "include"
             });

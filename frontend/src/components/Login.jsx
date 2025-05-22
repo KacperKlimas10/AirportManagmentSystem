@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthProvider";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "./AuthProvider";
 import PK from '../img/PK.png';
+
+const LOGIN_SERVICE = process.env.REACT_APP_LOGIN_SERVICE;
 
 function Login() {
     const [credentials, setCredentials] = useState({ login: "", password: "" });
@@ -11,7 +13,7 @@ function Login() {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch("http://localhost:8081/auth/login", {
+            const response = await fetch(`${process.env.REACT_APP_LOGIN_SERVICE}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(credentials),

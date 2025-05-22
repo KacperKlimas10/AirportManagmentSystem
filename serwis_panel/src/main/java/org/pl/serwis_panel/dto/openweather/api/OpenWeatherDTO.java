@@ -1,6 +1,7 @@
 package org.pl.serwis_panel.dto.openweather.api;
 
 import lombok.Data;
+
 import java.util.List;
 
 @Data

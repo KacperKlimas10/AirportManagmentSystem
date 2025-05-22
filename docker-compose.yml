@@ -1,81 +1,76 @@
-version: '3.8'
-
+name: lotnisko_projekt
 services:
-  serwis_logowania:
-    image: kacperklimas10/serwis_logowania:latest
+  serwis-logowania: # Usługa logowania – backend w Spring Boot
+    container_name: serwis_logowania  # Nazwa kontenera
+    image: kacperklimas10/serwis_logowania:dev-multiarch  # Nazwa i tag obrazu Dockera
     build:
-      context: ./serwis_logowania
-      dockerfile: Dockerfile
-    environment:
+      context: ./serwis_logowania  # Ścieżka do katalogu z Dockerfile
+    environment:  # Zmienne środowiskowe do konfiguracji Spring Boota
       SERVER_PORT: 8081
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: haslo
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
     networks:
-      my-network:
-      backend:
-        ipv4_address: 172.19.0.2
+      - my-network  # Sieć do komunikacji z frontendem i phpMyAdmin
+      - backend     # Sieć wewnętrzna do komunikacji z bazą danych
     ports:
-      - "8081:8081"
-
-  serwis_panel:
-    image: kacperklimas10/serwis_panel:latest
+      - "8081:8081" # Mapowanie portu host:kontener
+    depends_on: # Usługa, od której zależy uruchomienie tego kontenera
+      - db
+  serwis-panel: # Usługa panelu administracyjnego – drugi backend
+    container_name: serwis_panel
+    image: kacperklimas10/serwis_panel:dev-multiarch
     build:
       context: ./serwis_panel
-      dockerfile: Dockerfile
     environment:
       SERVER_PORT: 8082
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/lotnisko_baza
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: haslo
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
-      TOKEN_SERVICE_URL: http://172.19.0.2:8081
-    networks:
-      my-network:
-      backend:
-        ipv4_address: 172.19.0.3
-    ports:
-      - "8082:8082"
-
-  serwis_frontend:
-    image: kacperklimas10/serwis_frontend:latest
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    networks:
-      my-network:
-    ports:
-      - "3000:3000"
-
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin:latest
-    ports:
-      - "6969:80"
+      TOKEN_SERVICE_URL: http://serwis-logowania:8081  # Komunikacja między kontenerami
     networks:
       - my-network
-
-  db:
+      - backend
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db
+  serwis-frontend:  # Frontend React – serwowany przez Nginx
+    container_name: serwis_frontend
+    image: kacperklimas10/serwis_frontend:dev-multiarch
+    build:
+      context: ./frontend/dev.Dockerfile
+    networks:
+      - my-network
+    ports:
+      - "81:8080"  # Mapowanie frontendowego portu 8080 do 81 na hoście
+    depends_on:
+      - serwis-logowania
+      - serwis-panel
+  phpmyadmin:  # phpMyAdmin – GUI do zarządzania bazą MySQL
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    networks:
+      - backend
+    ports:
+      - "6969:80"  # Dostępne pod localhost:6969
+    depends_on:
+      - db
+  db: # Baza danych MySQL
     container_name: mysql
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: "haslo"
-      MYSQL_DATABASE: "lotnisko_baza"
-    ports:
-      - "3306:3306"
+      MYSQL_ROOT_PASSWORD: "haslo"  # Hasło dla użytkownika root
+      MYSQL_DATABASE: "lotnisko_baza"  # Tworzenie domyślnej bazy danych
     networks:
-      - my-network
+      - backend
     volumes:
-      - db-vol:/var/lib/mysql
-
-networks:
-  my-network:
-    driver: bridge
-  backend:
-    internal: true
-    ipam:
-      config:
-        - subnet: 172.19.0.0/16
-volumes:
-  db-vol:
+      - ./db:/docker-entrypoint-initdb.d  # Inicjalizacja bazy danych
+      - db-vol:/var/lib/mysql  # Trwały wolumen danych
+networks: # Definicje sieci – oddzielne przestrzenie do komunikacji usług
+  my-network:  # Sieć wspólna dla frontendu i backendu
+  backend:     # Sieć wewnętrzna do komunikacji backend <-> bazy danych
+volumes: # Definicja trwałych wolumenów danych
+  db-vol:  # Wolumen do przechowywania danych MySQL

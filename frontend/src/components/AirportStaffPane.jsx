@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import PK from "../img/PK.png";
 import userIcon from "../img/user.png";
+
+const PANEL_SERVICE = process.env.REACT_APP_PANEL_SERVICE
 
 function AirportStaffPane() {
     const navigate = useNavigate();
@@ -14,7 +16,7 @@ function AirportStaffPane() {
 
     const handleCheckIn = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/staff/passenger?name=${name}&surname=${surname}`,{
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/staff/passenger?name=${name}&surname=${surname}`,{
                 method: "GET",
                 credentials: "include",
             });
@@ -40,7 +42,7 @@ function AirportStaffPane() {
 
     const handleAccept = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/staff/passenger?name=${name}&surname=${surname}`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/staff/passenger?name=${name}&surname=${surname}`, {
                 method: "PATCH",
                 credentials: "include",
                 headers: {
@@ -67,7 +69,7 @@ function AirportStaffPane() {
 
     const handleDeny = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/staff/passenger?name=${name}&surname=${surname}`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/staff/passenger?name=${name}&surname=${surname}`, {
                 method: "PATCH",
                 credentials: "include",
                 headers: {

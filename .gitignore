@@ -4,6 +4,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+terraform/environments/dev/.terraform
+terraform/environments/dev/variables.tfvars
 
 ### STS ###
 .apt_generated
@@ -28,13 +30,14 @@ target/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
-!**/src/test/**/build/
+!**/src/test/**/build
 
 ### VS Code ###
 .vscode
 
 # Node modules
 node_modules/
+frontend/node_modules
 
 # Coverage directory used by tools like istanbul
 coverage/

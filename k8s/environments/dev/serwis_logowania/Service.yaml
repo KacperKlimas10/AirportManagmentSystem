@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: serwis-logowania
+  namespace: serwis-logowania
+spec:
+  selector:
+    app: serwis-logowania
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+

@@ -1,11 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import './App.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import PrivateRoute from "./components/PrivateRoute";
-import { AuthProvider } from "./components/AuthProvider";
+import {AuthProvider} from "./components/AuthProvider";
 import AirportStaffPane from "./components/AirportStaffPane";
 import AdminPane from "./components/AdminPane";
 import SecurityPane from "./components/SecurityPane";

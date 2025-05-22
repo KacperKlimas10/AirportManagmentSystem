@@ -1,4 +1,4 @@
-name: lotnisko_projekt CI/CD
+name: lotnisko_projekt application CI/CD
 on:
   push:
     branches:
@@ -6,7 +6,6 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -51,7 +50,7 @@ jobs:
         context: ./serwis_logowania
         file: ./serwis_logowania/Dockerfile
         push: true
-        tags: kacperklimas10/serwis_logowania:latest
+        tags: kacperklimas10/serwis_logowania:cicd
 
     - name: Build image and push serwis_panel
       uses: docker/build-push-action@v2
@@ -59,7 +58,7 @@ jobs:
         context: ./serwis_panel
         file: ./serwis_panel/Dockerfile
         push: true
-        tags: kacperklimas10/serwis_panel:latest
+        tags: kacperklimas10/serwis_panel:cicd
 
     - name: Build image and push serwis_frontend
       uses: docker/build-push-action@v2
@@ -67,4 +66,4 @@ jobs:
         context: ./frontend
         file: ./frontend/Dockerfile
         push: true
-        tags: kacperklimas10/serwis_frontend:latest
+        tags: kacperklimas10/serwis_frontend:cicd

@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import PK from "../img/PK.png";
+
+const PANEL_SERVICE = process.env.REACT_APP_PANEL_SERVICE
 
 function AdminPane() {
     const navigate = useNavigate();
@@ -16,7 +18,7 @@ function AdminPane() {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/admin/user`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/admin/user`, {
                 method: "GET",
                 credentials: "include"
             });
@@ -40,7 +42,7 @@ function AdminPane() {
 
     const handleAddUser = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/admin/user`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/admin/user`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -65,7 +67,7 @@ function AdminPane() {
 
     const handleDeleteUser = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/admin/user/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/admin/user/${id}`, {
                 method: "DELETE",
                 credentials: "include"
             });
@@ -86,7 +88,7 @@ function AdminPane() {
 
     const handleUpdateUser = async () => {
         try {
-            const response = await fetch(`http://localhost:8082/panel/admin/user/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_PANEL_SERVICE}/panel/admin/user/${id}`, {
                 method: "PATCH",
                 credentials: "include",
                 headers: {

@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {createContext, useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
+const LOGIN_SERVICE = process.env.REACT_APP_LOGIN_SERVICE
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await fetch("http://localhost:8081/auth/logout", {
+            await fetch(`${process.env.REACT_APP_LOGIN_SERVICE}/auth/logout`, {
                 method: "POST",
                 credentials: "include",
             });
@@ -26,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
     const refreshToken = async () => {
         try {
-            const response = await fetch("http://localhost:8081/auth/refresh", {
+            const response = await fetch(`${process.env.REACT_APP_LOGIN_SERVICE}/auth/refresh`, {
                 method: "POST",
                 credentials: "include",
             });

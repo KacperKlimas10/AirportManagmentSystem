@@ -1,7 +1,9 @@
 package org.pl.serwis_panel.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.pl.serwis_panel.enums.Role;
 
 @NoArgsConstructor

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class SecurityPanelService {
 
     private final FailureRepository failureRepository;
+
     public void saveFailure(FailureDTO failureDTO) {
         failureRepository.save(FailureMapper.toEntity(failureDTO));
     }
