@@ -36,13 +36,13 @@ spec:
                 name: serwis-db-api
                 port:
                   number: 80
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: nginx-config
-  namespace: ingress-nginx
-data:
-  proxy-pass-headers: "Host $host"
-  proxy_set_header: "Cookie $http_cookie"
-  proxy_pass_request_headers: "on"
+#---
+#kind: ConfigMap
+#apiVersion: v1
+#metadata:
+#  name: nginx-config
+#  namespace: ingress-nginx
+#data:
+#  proxy-pass-headers: "Host $host"
+#  proxy_set_header: "Cookie $http_cookie"
+#  proxy_pass_request_headers: "on"

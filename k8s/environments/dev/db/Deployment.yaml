@@ -42,15 +42,7 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
           privileged: false
-      - image: phpmyadmin/phpmyadmin:latest
-        name: phpmyadmin
-        ports:
-        - containerPort: 80
-          name: phpmyadmin
-        securityContext:
-          allowPrivilegeEscalation: false
-          privileged: false
       volumes:
-      - name: db-volume
-        persistentVolumeClaim:
-          claimName: db-pvc
+        - name: db-volume
+          persistentVolumeClaim:
+            claimName: db-pvc

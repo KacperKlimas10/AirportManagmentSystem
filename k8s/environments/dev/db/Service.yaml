@@ -15,7 +15,3 @@ spec:
       protocol: TCP
       port: 3306
       targetPort: 3306
-    - name: phpmyadmin
-      protocol: TCP
-      port: 80
-      targetPort: 80

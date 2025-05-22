@@ -1,32 +1,36 @@
+# Etap budowania aplikacji frontendowej przy użyciu lekkiego obrazu Node.js Alpine
 FROM node:18-alpine AS build
 
+# Ustawienie katalogu roboczego wewnątrz kontenera
 WORKDIR /app
 
-ARG REACT_APP_API_URL
+# Zmienna ARG do ustawienia adresu API (zastępowana przy budowie)
+ARG REACT_APP_API_URL="localhost"
 
-# DEV FOR COMPOSE
-ENV REACT_APP_LOGIN_SERVICE="${REACT_APP_API_URL}:8081"
-ENV REACT_APP_PANEL_SERVICE="${REACT_APP_API_URL}:8082"
+# Zmienne środowiskowe wykorzystywane przez aplikację React (dev - lokalne adresy usług)
+ENV REACT_APP_LOGIN_SERVICE="http://${REACT_APP_API_URL}:8081"
+ENV REACT_APP_PANEL_SERVICE="http://${REACT_APP_API_URL}:8082"
 
+# Skopiowanie plików zależności (npm)
 COPY package.json package-lock.json ./
 
+# Instalacja zależności
 RUN npm install
 
+# Skopiowanie pozostałych plików aplikacji
 COPY . .
 
+# Budowanie statycznej wersji aplikacji React
 RUN npm run build
 
-FROM nginx:alpine AS production
+# Drugi etap: użycie lekkiego obrazu nginx bez uprawnien roota jako serwera HTTP
+FROM nginxinc/nginx-unprivileged:alpine3.21-perl AS production
 
-RUN groupadd -r nginx && \
-    useradd -r nginx -g nginx && \
-    chown -R nginx:nginx /etc/nginx
-
+# Skopiowanie zbudowanej aplikacji do katalogu obsługiwanego przez nginx
 COPY --from=build /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+# Adnotacja dla portu 8080 (na tym porcie będzie działał serwer nginx)
+EXPOSE 8080
 
-USER nginx
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# Uruchomienie nginx przy starcie kontenera
+CMD ["nginx", "-g", "daemon off;"]

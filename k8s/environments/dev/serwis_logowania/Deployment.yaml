@@ -4,7 +4,7 @@ metadata:
   name: serwis-logowania
   namespace: serwis-logowania
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: serwis-logowania
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: serwis-logowania
-        image: kacperklimas10/serwis_logowania:latest
+        image: kacperklimas10/serwis_logowania:prod-multiarch
         imagePullPolicy: Always
         env:
           - name: SERVER_PORT

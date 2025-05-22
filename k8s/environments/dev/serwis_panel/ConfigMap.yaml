@@ -7,3 +7,4 @@ data:
   SERVER_PORT: "8082"
   TOKEN_SERVICE_URL: "http://serwis-logowania-api:8081"
   SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+
