@@ -89,7 +89,7 @@ http://localhost:81
 |----------------|-----------|
 | kacper | kacper |
 
-**Warning:** The test account is intended for demonstration purposes only.
+> **Warning:** The test account is intended for demonstration purposes only.
 
 ---
 
@@ -107,7 +107,7 @@ http://localhost:6969
 
 After successfull authentication, choose `lotnisko_baza` from the left sidebar to check the database structure.
 
-**Warning:** The test account is intended for demonstration purposes only.
+> **Warning:** The test account is intended for demonstration purposes only.
 
 ---
 
