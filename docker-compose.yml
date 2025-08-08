@@ -41,7 +41,8 @@ services:
     container_name: serwis_frontend
     image: kacperklimas10/serwis_frontend:dev-multiarch
     build:
-      context: ./frontend/dev.Dockerfile
+      context: ./frontend
+      dockerfile: dev.Dockerfile
     networks:
       - my-network
     ports:
