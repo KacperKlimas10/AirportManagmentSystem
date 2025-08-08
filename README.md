@@ -10,6 +10,9 @@ A full-stack microservices-based system for managing airport operations, includi
 - [Architecture & Modules](#architecture--modules)
 - [Features](#features)
 - [Getting Started](#getting-started)
+- [Web App](#web-app)
+- [phpMyAdmin](#phpmyadmin)
+- [License](#license)
 
 ---
 
@@ -70,6 +73,41 @@ cd terraform/environments/dev
 terraform init
 terraform apply
 ```
+
+---
+
+## Web App
+### Type in your browser
+
+```bash
+http://localhost:81
+```
+
+### Login credentials (test account)
+
+| Username | Password |
+|----------------|-----------|
+| kacper | kacper |
+
+**Warning:** The test account is intended for demonstration purposes only.
+
+---
+
+## phpMyAdmin
+### Type in your browser
+
+```bash
+http://localhost:6969
+```
+
+### Login credentials (test account)
+| Username | Password |
+|----------------|-----------|
+| root | haslo |
+
+After successfull authentication, choose `lotnisko_baza` from the left sidebar to check the database structure.
+
+**Warning:** The test account is intended for demonstration purposes only.
 
 ---
 
