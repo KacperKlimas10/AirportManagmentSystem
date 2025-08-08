@@ -58,7 +58,7 @@ This project simulates an airport management ecosystem with modular services, sc
 ```bash
 git clone https://github.com/KacperKlimas10/AirportManagmentSystem.git
 cd AirportManagmentSystem
-docker-compose up --build
+docker compose up -d --build
 ```
 ### Deploying on Kubernetes
 ```bash
